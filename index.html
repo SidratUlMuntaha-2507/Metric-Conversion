@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetricConverter - Unit Conversion Made Easy</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📐</text></svg>">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html"><i class="fas fa-ruler-combined"></i></a>
+                <span>MetricConverter</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link active">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-calculator"></i>
+                        <span>Converters</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                   <div class="dropdown-content">
+                     <a href="length.html"><i class="fas fa-ruler-horizontal"></i> Length</a>
+                     <a href="area.html"><i class="fas fa-border-all"></i> Area</a>
+                     <a href="volume.html"><i class="fas fa-flask"></i> Volume</a>
+                     <a href="mass.html"><i class="fas fa-weight-hanging"></i> Mass</a>
+                     <a href="temperature.html"><i class="fas fa-thermometer-half"></i> Temperature</a>
+                     <a href="time.html"><i class="fas fa-clock"></i> Time</a>
+                     <a href="angle.html"><i class="fas fa-shapes"></i> Angle</a>
+                     <a href="energy-and-power.html"><i class="fas fa-bolt"></i> Energy and Power</a>
+                     <a href="currency.html"><i class="fas fa-money-bill-wave"></i> Currency</a>
+                   </div>
+            </div>
+
+                <a href="charts.html" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Charts</span>
+                </a>
+                <a href="history.html" class="nav-link">
+                    <i class="fas fa-history"></i>
+                    <span>History</span>
+                </a>
+                <a href="articles.html" class="nav-link">
+                    <i class="fas fa-newspaper"></i>
+                    <span>Articles</span>
+                </a>
+                <a href="faq.html" class="nav-link">
+                    <i class="fas fa-question-circle"></i>
+                    <span>FAQ</span>
+                </a>
+            </div>
+            <div class="nav-actions">
+                <button id="darkModeToggle" class="dark-mode-btn">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu  -->
+<div class="mobile-menu">
+    <div class="mobile-nav-links">
+        <a href="index.html" class="mobile-nav-link active">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        
+        <!-- Mobile Dropdown for Converters -->
+        <div class="mobile-dropdown">
+            <button class="mobile-dropdown-toggle">
+                <div class="toggle-content">
+                    <i class="fas fa-calculator"></i>
+                    <span>Converters</span>
+                </div>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="mobile-dropdown-content">
+                <a href="length.html" class="mobile-nav-link">
+                    <i class="fas fa-ruler-horizontal"></i>
+                    <span>Length</span>
+                </a>
+                <a href="area.html" class="mobile-nav-link">
+                    <i class="fas fa-border-all"></i>
+                    <span>Area</span>
+                </a>
+                <a href="volume.html" class="mobile-nav-link">
+                    <i class="fas fa-flask"></i>
+                    <span>Volume</span>
+                </a>
+                <a href="mass.html" class="mobile-nav-link">
+                    <i class="fas fa-weight-hanging"></i>
+                    <span>Mass</span>
+                </a>
+                <a href="temperature.html" class="mobile-nav-link">
+                    <i class="fas fa-thermometer-half"></i>
+                    <span>Temperature</span>
+                </a>
+                <a href="time.html" class="mobile-nav-link">
+                    <i class="fas fa-clock"></i>
+                    <span>Time</span>
+                </a>
+                <a href="angle.html" class="mobile-nav-link">
+                    <i class="fas fa-shapes"></i>
+                    <span>Angle</span>
+                </a>
+                <a href="energy-and-power.html" class="mobile-nav-link">
+                    <i class="fas fa-bolt"></i>
+                    <span>Energy and Power</span>
+                </a>
+                <a href="currency.html" class="mobile-nav-link">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>Currency</span>
+                </a>
+            </div>
+        </div>
+
+        <a href="charts.html" class="mobile-nav-link">
+            <i class="fas fa-chart-bar"></i>
+            <span>Charts</span>
+        </a>
+        <a href="history.html" class="mobile-nav-link">
+            <i class="fas fa-history"></i>
+            <span>History</span>
+        </a>
+        <a href="articles.html" class="mobile-nav-link">
+            <i class="fas fa-newspaper"></i>
+            <span>Articles</span>
+        </a>
+        <a href="faq.html" class="mobile-nav-link">
+            <i class="fas fa-question-circle"></i>
+            <span>FAQ</span>
+        </a>
+    </div>
+</div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <h1 class="hero-title">Metric Conversion Made Simple</h1>
+            <p class="hero-subtitle">Convert between different units instantly with our easy-to-use calculators</p>
+            
+            <!-- Quick Converter -->
+            <div class="quick-converter">
+                <h3><i class="fas fa-bolt"></i> Quick Convert</h3>
+                <div class="converter-form">
+                    <div class="input-group">
+                        <input type="number" id="quickValue" placeholder="Enter value" step="any">
+                        <select id="quickFrom">
+                            <option value="inches">Inches</option>
+                            <option value="cm">Centimeters</option>
+                            <option value="feet">Feet</option>
+                            <option value="meters">Meters</option>
+                            <option value="celsius">Celsius</option>
+                            <option value="fahrenheit">Fahrenheit</option>
+                        </select>
+                    </div>
+                    <div class="convert-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    <div class="input-group">
+                        <select id="quickTo">
+                            <option value="cm">Centimeters</option>
+                            <option value="inches">Inches</option>
+                            <option value="meters">Meters</option>
+                            <option value="feet">Feet</option>
+                            <option value="fahrenheit">Fahrenheit</option>
+                            <option value="celsius">Celsius</option>
+                        </select>
+                    </div>
+                    <button onclick="quickConvert()" class="convert-btn">
+                        <i class="fas fa-sync-alt"></i> Convert
+                    </button>
+                </div>
+                <div id="quickResult" class="result"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Access Cards -->
+    <section class="features">
+        <div class="container">
+            <h2>Conversion Tools</h2>
+            <div class="cards-grid">
+                <!-- Length Card -->
+                <div class="card" data-converter="length">
+                    <div class="card-icon">
+                        <i class="fas fa-ruler-horizontal"></i>
+                    </div>
+                    <h3>Length Converter</h3>
+                    <p>Convert inches, feet, yards, miles, meters, kilometers and more with precision</p>
+                    <div class="card-footer">
+                        <span class="card-stats">15+ Units</span>
+                        <div class="card-actions">
+                            <button class="card-btn quick-action" data-action="quick-convert">
+                                <i class="fas fa-bolt"></i>
+                            </button>
+                            <button class="card-btn explore-action" data-action="explore">
+                                <i class="fas fa-external-link-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-overlay">
+                        <div class="overlay-content">
+                            <h4>Quick Length Conversion</h4>
+                            <div class="mini-converter">
+                                <input type="number" class="mini-input" placeholder="Value" data-unit="from">
+                                <select class="mini-select" data-unit="from">
+                                    <option value="inches">Inches</option>
+                                    <option value="feet">Feet</option>
+                                    <option value="meters">Meters</option>
+                                    <option value="cm">Centimeters</option>
+                                </select>
+                                <i class="fas fa-arrow-right"></i>
+                                <select class="mini-select" data-unit="to">
+                                    <option value="cm">Centimeters</option>
+                                    <option value="inches">Inches</option>
+                                    <option value="meters">Meters</option>
+                                    <option value="feet">Feet</option>
+                                </select>
+                                <button class="mini-convert-btn">Convert</button>
+                            </div>
+                            <div class="mini-result"></div>
+                            <button class="close-overlay">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Area Card -->
+                <div class="card" data-converter="area">
+                    <div class="card-icon">
+                        <i class="fas fa-border-all"></i>
+                    </div>
+                    <h3>Area Converter</h3>
+                    <p>Convert square units, acres, hectares, square feet, square meters and more</p>
+                    <div class="card-footer">
+                        <span class="card-stats">12+ Units</span>
+                        <div class="card-actions">
+                            <button class="card-btn quick-action" data-action="quick-convert">
+                                <i class="fas fa-bolt"></i>
+                            </button>
+                            <button class="card-btn explore-action" data-action="explore">
+                                <i class="fas fa-external-link-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-overlay">
+                        <div class="overlay-content">
+                            <h4>Quick Area Conversion</h4>
+                            <div class="mini-converter">
+                                <input type="number" class="mini-input" placeholder="Value" data-unit="from">
+                                <select class="mini-select" data-unit="from">
+                                    <option value="sqft">Square Feet</option>
+                                    <option value="sqm">Square Meters</option>
+                                    <option value="acres">Acres</option>
+                                    <option value="hectares">Hectares</option>
+                                </select>
+                                <i class="fas fa-arrow-right"></i>
+                                <select class="mini-select" data-unit="to">
+                                    <option value="sqm">Square Meters</option>
+                                    <option value="sqft">Square Feet</option>
+                                    <option value="acres">Acres</option>
+                                    <option value="hectares">Hectares</option>
+                                </select>
+                                <button class="mini-convert-btn">Convert</button>
+                            </div>
+                            <div class="mini-result"></div>
+                            <button class="close-overlay">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Volume Card -->
+                <div class="card" data-converter="volume">
+                    <div class="card-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3>Volume Converter</h3>
+                    <p>Convert liters, gallons, milliliters, cubic units, pints, quarts and more</p>
+                    <div class="card-footer">
+                        <span class="card-stats">18+ Units</span>
+                        <div class="card-actions">
+                            <button class="card-btn quick-action" data-action="quick-convert">
+                                <i class="fas fa-bolt"></i>
+                            </button>
+                            <button class="card-btn explore-action" data-action="explore">
+                                <i class="fas fa-external-link-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-overlay">
+                        <div class="overlay-content">
+                            <h4>Quick Volume Conversion</h4>
+                            <div class="mini-converter">
+                                <input type="number" class="mini-input" placeholder="Value" data-unit="from">
+                                <select class="mini-select" data-unit="from">
+                                    <option value="liters">Liters</option>
+                                    <option value="gallons">Gallons</option>
+                                    <option value="ml">Milliliters</option>
+                                    <option value="cubic-feet">Cubic Feet</option>
+                                </select>
+                                <i class="fas fa-arrow-right"></i>
+                                <select class="mini-select" data-unit="to">
+                                    <option value="gallons">Gallons</option>
+                                    <option value="liters">Liters</option>
+                                    <option value="ml">Milliliters</option>
+                                    <option value="cubic-feet">Cubic Feet</option>
+                                </select>
+                                <button class="mini-convert-btn">Convert</button>
+                            </div>
+                            <div class="mini-result"></div>
+                            <button class="close-overlay">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Temperature Card -->
+                <div class="card" data-converter="temperature">
+                    <div class="card-icon">
+                        <i class="fas fa-thermometer-half"></i>
+                    </div>
+                    <h3>Temperature Converter</h3>
+                    <p>Convert between Celsius, Fahrenheit, Kelvin with instant calculations</p>
+                    <div class="card-footer">
+                        <span class="card-stats">3 Scales</span>
+                        <div class="card-actions">
+                            <button class="card-btn quick-action" data-action="quick-convert">
+                                <i class="fas fa-bolt"></i>
+                            </button>
+                            <button class="card-btn explore-action" data-action="explore">
+                                <i class="fas fa-external-link-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-overlay">
+                        <div class="overlay-content">
+                            <h4>Quick Temperature Conversion</h4>
+                            <div class="mini-converter">
+                                <input type="number" class="mini-input" placeholder="Value" data-unit="from">
+                                <select class="mini-select" data-unit="from">
+                                    <option value="celsius">Celsius</option>
+                                    <option value="fahrenheit">Fahrenheit</option>
+                                    <option value="kelvin">Kelvin</option>
+                                </select>
+                                <i class="fas fa-arrow-right"></i>
+                                <select class="mini-select" data-unit="to">
+                                    <option value="fahrenheit">Fahrenheit</option>
+                                    <option value="celsius">Celsius</option>
+                                    <option value="kelvin">Kelvin</option>
+                                </select>
+                                <button class="mini-convert-btn">Convert</button>
+                            </div>
+                            <div class="mini-result"></div>
+                            <button class="close-overlay">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mass Card -->
+                <div class="card" data-converter="mass">
+                    <div class="card-icon">
+                        <i class="fas fa-weight-hanging"></i>
+                    </div>
+                    <h3>Mass Converter</h3>
+                    <p>Convert grams, kilograms, pounds, ounces, stones, tons and more</p>
+                    <div class="card-footer">
+                        <span class="card-stats">10+ Units</span>
+                        <div class="card-actions">
+                            <button class="card-btn quick-action" data-action="quick-convert">
+                                <i class="fas fa-bolt"></i>
+                            </button>
+                            <button class="card-btn explore-action" data-action="explore">
+                                <i class="fas fa-external-link-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-overlay">
+                        <div class="overlay-content">
+                            <h4>Quick Mass Conversion</h4>
+                            <div class="mini-converter">
+                                <input type="number" class="mini-input" placeholder="Value" data-unit="from">
+                                <select class="mini-select" data-unit="from">
+                                    <option value="kg">Kilograms</option>
+                                    <option value="pounds">Pounds</option>
+                                    <option value="grams">Grams</option>
+                                    <option value="ounces">Ounces</option>
+                                </select>
+                                <i class="fas fa-arrow-right"></i>
+                                <select class="mini-select" data-unit="to">
+                                    <option value="pounds">Pounds</option>
+                                    <option value="kg">Kilograms</option>
+                                    <option value="grams">Grams</option>
+                                    <option value="ounces">Ounces</option>
+                                </select>
+                                <button class="mini-convert-btn">Convert</button>
+                            </div>
+                            <div class="mini-result"></div>
+                            <button class="close-overlay">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Time Card -->
+<div class="card" data-converter="time">
+    <div class="card-icon">
+        <i class="fas fa-clock"></i>
+    </div>
+    <h3>Time Converter</h3>
+    <p>Convert seconds, minutes, hours, days, weeks, months, years and more</p>
+    <div class="card-footer">
+        <span class="card-stats">8+ Units</span>
+        <div class="card-actions">
+            <button class="card-btn quick-action" data-action="quick-convert">
+                <i class="fas fa-bolt"></i>
+            </button>
+            <button class="card-btn explore-action" data-action="explore">
+                <i class="fas fa-external-link-alt"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-overlay">
+        <div class="overlay-content">
+            <h4>Quick Time Conversion</h4>
+            <div class="mini-converter">
+                <input type="number" class="mini-input" placeholder="Value" data-unit="from">
+                <select class="mini-select" data-unit="from">
+                    <option value="seconds">Seconds</option>
+                    <option value="minutes">Minutes</option>
+                    <option value="hours">Hours</option>
+                    <option value="days">Days</option>
+                </select>
+                <i class="fas fa-arrow-right"></i>
+                <select class="mini-select" data-unit="to">
+                    <option value="minutes">Minutes</option>
+                    <option value="seconds">Seconds</option>
+                    <option value="hours">Hours</option>
+                    <option value="days">Days</option>
+                </select>
+                <button class="mini-convert-btn">Convert</button>
+            </div>
+            <div class="mini-result"></div>
+            <button class="close-overlay">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Angle Card -->
+<div class="card" data-converter="angle">
+    <div class="card-icon">
+        <i class="fas fa-shapes"></i>
+    </div>
+    <h3>Angle Converter</h3>
+    <p>Convert degrees, radians, gradians, arcminutes, arcseconds and more</p>
+    <div class="card-footer">
+        <span class="card-stats">6+ Units</span>
+        <div class="card-actions">
+            <button class="card-btn quick-action" data-action="quick-convert">
+                <i class="fas fa-bolt"></i>
+            </button>
+            <button class="card-btn explore-action" data-action="explore">
+                <i class="fas fa-external-link-alt"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-overlay">
+        <div class="overlay-content">
+            <h4>Quick Angle Conversion</h4>
+            <div class="mini-converter">
+                <input type="number" class="mini-input" placeholder="Value" data-unit="from">
+                <select class="mini-select" data-unit="from">
+                    <option value="degrees">Degrees</option>
+                    <option value="radians">Radians</option>
+                    <option value="gradians">Gradians</option>
+                    <option value="arcminutes">Arcminutes</option>
+                </select>
+                <i class="fas fa-arrow-right"></i>
+                <select class="mini-select" data-unit="to">
+                    <option value="radians">Radians</option>
+                    <option value="degrees">Degrees</option>
+                    <option value="gradians">Gradians</option>
+                    <option value="arcminutes">Arcminutes</option>
+                </select>
+                <button class="mini-convert-btn">Convert</button>
+            </div>
+            <div class="mini-result"></div>
+            <button class="close-overlay">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Energy and Power Card -->
+<div class="card" data-converter="energy-and-power">
+    <div class="card-icon">
+        <i class="fas fa-bolt"></i>
+    </div>
+    <h3>Energy & Power Converter</h3>
+    <p>Convert joules, calories, watt-hours, BTUs, horsepower, kilowatts and more</p>
+    <div class="card-footer">
+        <span class="card-stats">12+ Units</span>
+        <div class="card-actions">
+            <button class="card-btn quick-action" data-action="quick-convert">
+                <i class="fas fa-bolt"></i>
+            </button>
+            <button class="card-btn explore-action" data-action="explore">
+                <i class="fas fa-external-link-alt"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-overlay">
+        <div class="overlay-content">
+            <h4>Quick Energy & Power Conversion</h4>
+            <div class="mini-converter">
+                <input type="number" class="mini-input" placeholder="Value" data-unit="from">
+                <select class="mini-select" data-unit="from">
+                    <option value="joules">Joules</option>
+                    <option value="calories">Calories</option>
+                    <option value="watt-hours">Watt-hours</option>
+                    <option value="btu">BTU</option>
+                </select>
+                <i class="fas fa-arrow-right"></i>
+                <select class="mini-select" data-unit="to">
+                    <option value="calories">Calories</option>
+                    <option value="joules">Joules</option>
+                    <option value="watt-hours">Watt-hours</option>
+                    <option value="btu">BTU</option>
+                </select>
+                <button class="mini-convert-btn">Convert</button>
+            </div>
+            <div class="mini-result"></div>
+            <button class="close-overlay">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+                <!-- Currency Card -->
+                <div class="card" data-converter="currency">
+                    <div class="card-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <h3>Currency Converter</h3>
+                    <p>Convert between 150+ currencies with real-time exchange rates</p>
+                    <div class="card-footer">
+                        <span class="card-stats">150+ Currencies</span>
+                        <div class="card-actions">
+                            <button class="card-btn quick-action" data-action="quick-convert">
+                                <i class="fas fa-bolt"></i>
+                            </button>
+                            <button class="card-btn explore-action" data-action="explore">
+                                <i class="fas fa-external-link-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-overlay">
+                        <div class="overlay-content">
+                            <h4>Quick Currency Conversion</h4>
+                            <div class="mini-converter">
+                                <input type="number" class="mini-input" placeholder="Value" data-unit="from">
+                                <select class="mini-select" data-unit="from">
+                                    <option value="USD">US Dollar</option>
+                                    <option value="EUR">Euro</option>
+                                    <option value="GBP">British Pound</option>
+                                    <option value="JPY">Japanese Yen</option>
+                                </select>
+                                <i class="fas fa-arrow-right"></i>
+                                <select class="mini-select" data-unit="to">
+                                    <option value="EUR">Euro</option>
+                                    <option value="USD">US Dollar</option>
+                                    <option value="GBP">British Pound</option>
+                                    <option value="JPY">Japanese Yen</option>
+                                </select>
+                                <button class="mini-convert-btn">Convert</button>
+                            </div>
+                            <div class="mini-result"></div>
+                            <button class="close-overlay">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-ruler-combined"></i> MetricConverter</h4>
+                    <p>Your trusted companion for all unit conversion needs. Fast, accurate, and easy to use.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a>
+                    <a href="charts.html">Charts</a>
+                    <a href="history.html">History</a>
+                    <a href="articles.html">Article</a>
+                    <a href="faq.html">Help & FAQ</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Converters</h4>
+                    <a href="length.html">Length</a>
+                    <a href="area.html">Area</a>
+                    <a href="volume.html">Volume</a>
+                    <a href="mass.html">Mass</a>
+                    <a href="temperature.html">Temperature</a>
+                    <a href="time.html">Time</a>
+                    <a href="angle.html">Angle</a>
+                    <a href="energy-and-power.html">Energy&Power</a>
+                    <a href="currency.html">Currency</a>
+                </div>
+                <div class="footer-bottom">
+                <p>&copy; 2025 MetricConverter. All rights reserved. | eProject by Abdur Rehman, Sidrat Ul Muntaha and Ameema</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History of Measurement - MetricConverter</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏛️</text></svg>">
+    <style>
+        /* Additional styles specific to history page */
+       
+        .dark-mode {
+            --bg-color: #111827;
+            --card-bg: #1f2937;
+            --text-color: #f9fafb;
+            --border-color: #374151;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+            --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+        }
+
+      
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .history-hero {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 140px 20px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .hero-bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .floating-shape {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        .shape-1 {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .shape-3 {
+            width: 80px;
+            height: 80px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .converter-header {
+            position: relative;
+            z-index: 3;
+        }
+
+        .header-icon.animated-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: bounce 2s ease-in-out infinite;
+            position: relative;
+            z-index: 3;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .animate-pop-in {
+            animation: popIn 0.8s ease-out;
+            position: relative;
+            z-index: 3;
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .history-content {
+            padding: 80px 20px;
+            background: var(--bg-color);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Timeline Navigation - Made Responsive */
+        .timeline-nav {
+            position: sticky;
+            top: 80px;
+            z-index: 100;
+            background: var(--card-bg);
+            padding: 15px 20px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            scrollbar-width: none;
+        }
+
+        .timeline-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .timeline-nav-btn {
+            padding: 8px 16px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            color: var(--text-color);
+            font-size: 0.9rem;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: max-content;
+        }
+
+        .timeline-nav-btn:hover,
+        .timeline-nav-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Timeline Progress */
+        .timeline-progress {
+            height: 4px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 2px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timeline-progress-bar {
+            height: 100%;
+            background: var(--primary-color);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 2px;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 10px;
+            z-index: 1;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+            z-index: 2;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background: var(--card-bg);
+            position: relative;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background: var(--primary-color);
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+            border-radius: 4px;
+            z-index: 2;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::before {
+            left: -10px;
+            right: auto;
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .timeline-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: -25px;
+            z-index: 3;
+            box-shadow: var(--shadow);
+        }
+
+        .timeline-item:nth-child(even) .timeline-icon {
+            left: -25px;
+            right: auto;
+        }
+
+        /* Timeline Images */
+        .timeline-image {
+            width: 100%;
+            height: 180px;
+            background: var(--bg-color);
+            border-radius: 12px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .timeline-image i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            opacity: 0.7;
+        }
+
+        /* Search Section */
+        .search-section {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .search-box {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border-radius: 50px;
+            border: 2px solid var(--border-color);
+            background: var(--card-bg);
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .search-filters {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            scrollbar-width: none;
+        }
+
+        .search-filters::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            color: var(--text-color);
+            font-size: 0.9rem;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .article-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .article-card.hidden {
+            display: none;
+        }
+
+        .article-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .article-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .article-card h3 {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            text-align: center;
+        }
+
+        .article-card p {
+            color: var(--text-color);
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        /* Footer - Made Responsive */
+        .footer {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-section p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            grid-column: 1 / -1;
+        }
+
+        .footer-bottom p {
+            opacity: 0.8;
+            font-size: 1rem;
+        }
+
+        /* Mobile Menu Styles */
+        .mobile-menu {
+            position: fixed;
+            top: 70px;
+            right: -300px;
+            width: 280px;
+            height: calc(100vh - 70px);
+            background: var(--card-bg);
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            transition: right 0.3s ease;
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .mobile-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .mobile-nav-link:hover,
+        .mobile-nav-link.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .mobile-dropdown {
+            position: relative;
+        }
+
+        .mobile-dropdown-toggle {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 15px;
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-dropdown-toggle:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .mobile-dropdown-content {
+            display: none;
+            flex-direction: column;
+            padding-left: 20px;
+            margin-top: 5px;
+        }
+
+        .mobile-dropdown.active .mobile-dropdown-content {
+            display: flex;
+        }
+
+        .mobile-dropdown.active .mobile-dropdown-toggle .fa-chevron-down {
+            transform: rotate(180deg);
+        }
+
+        .mobile-dropdown-toggle .fa-chevron-down {
+            transition: transform 0.3s ease;
+        }
+
+        /* Mobile menu button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            /* Timeline Navigation - Responsive */
+            .timeline-nav {
+                top: 70px;
+                padding: 12px 15px;
+            }
+
+            .timeline-nav-btn {
+                padding: 10px 14px;
+                font-size: 0.85rem;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+
+            .timeline-content::before {
+                left: -10px;
+                right: auto;
+            }
+
+            .timeline-icon {
+                left: 6px !important;
+                right: auto !important;
+            }
+
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Footer - Responsive */
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 0 20px;
+            }
+            
+            .footer-section {
+                text-align: center;
+            }
+            
+            .footer-section h4 {
+                justify-content: center;
+            }
+
+            .history-hero {
+                padding: 120px 20px 60px;
+            }
+
+            .header-icon.animated-icon {
+                font-size: 3rem;
+            }
+        }
+
+        /* Small Mobile Devices */
+        @media (max-width: 480px) {
+            /* Timeline Navigation - Small Screen */
+            .timeline-nav {
+                padding: 10px 12px;
+                gap: 8px;
+            }
+            
+            .timeline-nav-btn {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+            
+            /* Footer - Small Screen */
+            .footer {
+                padding: 2rem 0 1rem;
+            }
+            
+            .footer-content {
+                padding: 0 15px;
+                gap: 1.5rem;
+            }
+            
+            .footer-section h4 {
+                font-size: 1.1rem;
+                margin-bottom: 1rem;
+            }
+            
+            .footer-section p {
+                font-size: 0.9rem;
+            }
+            
+            .footer-section a {
+                font-size: 0.9rem;
+            }
+            
+            .footer-bottom p {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Better focus states for accessibility */
+        .timeline-nav-btn:focus,
+        .search-input:focus,
+        .filter-btn:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        /* Enhanced mobile touch targets */
+        @media (max-width: 768px) {
+            .timeline-nav-btn,
+            .filter-btn {
+                min-height: 44px;
+                min-width: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html"><i class="fas fa-ruler-combined"></i></a>
+                <span>MetricConverter</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-calculator"></i>
+                        <span>Converters</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                   <div class="dropdown-content">
+                     <a href="length.html"><i class="fas fa-ruler-horizontal"></i> Length</a>
+                     <a href="area.html"><i class="fas fa-border-all"></i> Area</a>
+                     <a href="volume.html"><i class="fas fa-flask"></i> Volume</a>
+                     <a href="mass.html"><i class="fas fa-weight-hanging"></i> Mass</a>
+                     <a href="temperature.html"><i class="fas fa-thermometer-half"></i> Temperature</a>
+                     <a href="time.html"><i class="fas fa-clock"></i> Time</a>
+                     <a href="angle.html"><i class="fas fa-shapes"></i> Angle</a>
+                     <a href="energy-and-power.html"><i class="fas fa-bolt"></i> Energy and Power</a>
+                     <a href="currency.html"><i class="fas fa-money-bill-wave"></i> Currency</a>
+                   </div>
+            </div>
+
+                <a href="charts.html" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Charts</span>
+                </a>
+                <a href="history.html" class="nav-link active">
+                    <i class="fas fa-history"></i>
+                    <span>History</span>
+                </a>
+                <a href="articles.html" class="nav-link">
+                    <i class="fas fa-newspaper"></i>
+                    <span>Articles</span>
+                </a>
+                <a href="faq.html" class="nav-link">
+                    <i class="fas fa-question-circle"></i>
+                    <span>FAQ</span>
+                </a>
+            </div>
+            <div class="nav-actions">
+                <button id="darkModeToggle" class="dark-mode-btn">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-nav-links">
+            <a href="index.html" class="mobile-nav-link">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            
+            <!-- Mobile Dropdown for Converters -->
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-toggle">
+                    <div class="toggle-content">
+                        <i class="fas fa-calculator"></i>
+                        <span>Converters</span>
+                    </div>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="mobile-dropdown-content">
+                    <a href="length.html" class="mobile-nav-link">
+                        <i class="fas fa-ruler-horizontal"></i>
+                        <span>Length</span>
+                    </a>
+                    <a href="area.html" class="mobile-nav-link">
+                        <i class="fas fa-border-all"></i>
+                        <span>Area</span>
+                    </a>
+                    <a href="volume.html" class="mobile-nav-link">
+                        <i class="fas fa-flask"></i>
+                        <span>Volume</span>
+                    </a>
+                    <a href="mass.html" class="mobile-nav-link">
+                        <i class="fas fa-weight-hanging"></i>
+                        <span>Mass</span>
+                    </a>
+                    <a href="temperature.html" class="mobile-nav-link">
+                        <i class="fas fa-thermometer-half"></i>
+                        <span>Temperature</span>
+                    </a>
+                    <a href="time.html" class="mobile-nav-link">
+                        <i class="fas fa-clock"></i>
+                        <span>Time</span>
+                    </a>
+                    <a href="angle.html" class="mobile-nav-link">
+                        <i class="fas fa-shapes"></i>
+                        <span>Angle</span>
+                    </a>
+                    <a href="energy-and-power.html" class="mobile-nav-link">
+                        <i class="fas fa-bolt"></i>
+                        <span>Energy and Power</span>
+                    </a>
+                    <a href="currency.html" class="mobile-nav-link">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Currency</span>
+                    </a>
+                </div>
+            </div>
+
+            <a href="charts.html" class="mobile-nav-link">
+                <i class="fas fa-chart-bar"></i>
+                <span>Charts</span>
+            </a>
+            <a href="history.html" class="mobile-nav-link active">
+                <i class="fas fa-history"></i>
+                <span>History</span>
+            </a>
+            <a href="articles.html" class="mobile-nav-link">
+                <i class="fas fa-newspaper"></i>
+                <span>Articles</span>
+            </a>
+            <a href="faq.html" class="mobile-nav-link">
+                <i class="fas fa-question-circle"></i>
+                <span>FAQ</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Animated Hero Section -->
+    <section class="history-hero">
+        <div class="hero-bg-animation">
+            <div class="floating-shape shape-1"></div>
+            <div class="floating-shape shape-2"></div>
+            <div class="floating-shape shape-3"></div>
+        </div>
+        <div class="container">
+            <div class="converter-header">
+                <div class="header-icon animated-icon">
+                    <i class="fas fa-history"></i>
+                </div>
+                <h1 class="animate-pop-in">History of Measurement</h1>
+                <p class="animate-pop-in">Discover the fascinating evolution of measurement systems through time</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Content Section -->
+    <section class="history-content">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 3rem; color: var(--text-color);">The Evolution of Measurement Systems</h2>
+            
+            <!-- Timeline Progress -->
+            <div class="timeline-progress">
+                <div class="timeline-progress-bar"></div>
+            </div>
+            
+            <!-- Timeline -->
+            <div class="timeline">
+                <!-- Ancient Era -->
+                <div class="timeline-item" id="ancient">
+                    <div class="timeline-icon">
+                        <i class="fas fa-monument"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            3000 BCE
+                        </div>
+                        <h3>Ancient Measurement Systems</h3>
+                        <div class="timeline-image">
+                            <i class="fas fa-monument"></i>
+                        </div>
+                        <p>Early civilizations in Egypt, Mesopotamia, and the Indus Valley developed the first standardized measurement systems. These were typically based on human body parts like the cubit (forearm length), foot, and digit (finger width).</p>
+                        <p>The Egyptian cubit was standardized using a royal master cubit made of black granite, establishing one of the first official measurement standards.</p>
+                    </div>
+                </div>
+
+                <!-- Roman Era -->
+                <div class="timeline-item" id="roman">
+                    <div class="timeline-icon">
+                        <i class="fas fa-archway"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            500 BCE - 500 CE
+                        </div>
+                        <h3>Roman Standardization</h3>
+                        <div class="timeline-image">
+                            <i class="fas fa-archway"></i>
+                        </div>
+                        <p>The Romans established a comprehensive system of measurement that spread throughout their empire. Their units included the pes (foot), uncia (inch), and mille passus (thousand paces, which became the mile).</p>
+                        <p>Roman engineers used precise measurements in their construction projects, many of which still stand today as testaments to their accuracy.</p>
+                    </div>
+                </div>
+
+                <!-- Middle Ages -->
+                <div class="timeline-item" id="medieval">
+                    <div class="timeline-icon">
+                        <i class="fas fa-feather-alt"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            800 - 1500 CE
+                        </div>
+                        <h3>Medieval Variations</h3>
+                        <div class="timeline-image">
+                            <i class="fas fa-feather-alt"></i>
+                        </div>
+                        <p>During the Middle Ages, measurement systems became highly localized, with different regions developing their own standards. This created significant challenges for trade and commerce.</p>
+                        <p>King Henry I of England standardized the yard as the distance from his nose to the thumb of his outstretched arm, attempting to bring consistency to English measurements.</p>
+                    </div>
+                </div>
+
+                <!-- Metric System Birth -->
+                <div class="timeline-item" id="metric">
+                    <div class="timeline-icon">
+                        <i class="fas fa-republican"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            1790s
+                        </div>
+                        <h3>Birth of the Metric System</h3>
+                        <div class="timeline-image">
+                            <i class="fas fa-republican"></i>
+                        </div>
+                        <p>Following the French Revolution, the French Academy of Sciences developed the metric system as a rational, decimal-based alternative to traditional units.</p>
+                        <p>The meter was originally defined as one ten-millionth of the distance from the North Pole to the Equator along the Paris meridian. The gram was defined as the mass of one cubic centimeter of water.</p>
+                    </div>
+                </div>
+
+                <!-- International Standardization -->
+                <div class="timeline-item" id="international">
+                    <div class="timeline-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            1875
+                        </div>
+                        <h3>International Standardization</h3>
+                        <div class="timeline-image">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <p>The Treaty of the Meter was signed by 17 nations, establishing the International Bureau of Weights and Measures and creating international prototypes for the meter and kilogram.</p>
+                        <p>This marked the beginning of global cooperation in measurement standards and laid the foundation for the modern International System of Units (SI).</p>
+                    </div>
+                </div>
+
+                <!-- Modern SI System -->
+                <div class="timeline-item" id="modern">
+                    <div class="timeline-icon">
+                        <i class="fas fa-atom"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            1960 - Present
+                        </div>
+                        <h3>Modern SI System</h3>
+                        <div class="timeline-image">
+                            <i class="fas fa-atom"></i>
+                        </div>
+                        <p>The International System of Units (SI) was established, building on the metric system with seven base units. Definitions evolved to be based on fundamental constants of nature rather than physical artifacts.</p>
+                        <p>Recent redefinitions tie units to constants like the speed of light, Planck's constant, and the elementary charge, making measurements more precise and reproducible worldwide.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Articles Section -->
+            <div class="articles-section" style="margin-top: 6rem;">
+                <h2 style="text-align: center; margin-bottom: 3rem; color: var(--text-color);">Featured Articles</h2>
+                
+                <!-- Search and Filter -->
+                <div class="search-section">
+                    <div class="search-box">
+                        <input type="text" class="search-input" placeholder="Search articles...">
+                        <button class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <div class="search-filters">
+                        <button class="filter-btn active" data-filter="all">All Articles</button>
+                        <button class="filter-btn" data-filter="beginner">Beginner</button>
+                        <button class="filter-btn" data-filter="intermediate">Intermediate</button>
+                        <button class="filter-btn" data-filter="advanced">Advanced</button>
+                    </div>
+                </div>
+                
+                <div class="articles-grid">
+                    <!-- SI System Article -->
+                    <div class="article-card" data-level="advanced">
+                        <div class="article-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h3>The SI System</h3>
+                        <p>The International System of Units (SI) is the modern form of the metric system and the most widely used measurement system in the world. It comprises seven base units from which all other units are derived.</p>
+                        <div class="article-meta">
+                            <span>Read Time: 5 min</span>
+                            <span>Advanced</span>
+                        </div>
+                    </div>
+
+                    <!-- Metric System Article -->
+                    <div class="article-card" data-level="intermediate">
+                        <div class="article-icon">
+                            <i class="fas fa-balance-scale"></i>
+                        </div>
+                        <h3>Metric System Evolution</h3>
+                        <p>Explore how the metric system has evolved from its French Revolution origins to the sophisticated international standard we use today, including key milestones and important figures in its development.</p>
+                        <div class="article-meta">
+                            <span>Read Time: 7 min</span>
+                            <span>Intermediate</span>
+                        </div>
+                    </div>
+
+                    <!-- The Meter Article -->
+                    <div class="article-card" data-level="intermediate">
+                        <div class="article-icon">
+                            <i class="fas fa-ruler-combined"></i>
+                        </div>
+                        <h3>The Meter Through Time</h3>
+                        <p>Trace the fascinating history of the meter's definition - from a fraction of the Earth's circumference to its current definition based on the speed of light, showcasing humanity's quest for precision.</p>
+                        <div class="article-meta">
+                            <span>Read Time: 6 min</span>
+                            <span>Intermediate</span>
+                        </div>
+                    </div>
+
+                    <!-- US Customary Units -->
+                    <div class="article-card" data-level="beginner">
+                        <div class="article-icon">
+                            <i class="fas fa-flag-usa"></i>
+                        </div>
+                        <h3>Traditional U.S. Units</h3>
+                        <p>Discover the origins and history of the United States customary units, their relationship to British Imperial units, and why the U.S. continues to use this system alongside the metric system.</p>
+                        <div class="article-meta">
+                            <span>Read Time: 8 min</span>
+                            <span>Beginner</span>
+                        </div>
+                    </div>
+
+                    <!-- Global Adoption -->
+                    <div class="article-card" data-level="beginner">
+                        <div class="article-icon">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </div>
+                        <h3>Global Metric Adoption</h3>
+                        <p>Learn about the worldwide transition to the metric system, the countries that have adopted it, and the few that haven't, along with the challenges and benefits of metrication.</p>
+                        <div class="article-meta">
+                            <span>Read Time: 5 min</span>
+                            <span>Beginner</span>
+                        </div>
+                    </div>
+
+                    <!-- Future of Measurement -->
+                    <div class="article-card" data-level="advanced">
+                        <div class="article-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3>Future of Measurement</h3>
+                        <p>Explore emerging trends in measurement science, including quantum-based standards, nanotechnology applications, and how digital technology is transforming how we measure and quantify our world.</p>
+                        <div class="article-meta">
+                            <span>Read Time: 6 min</span>
+                            <span>Advanced</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-ruler-combined"></i> MetricConverter</h4>
+                    <p>Your trusted companion for all unit conversion needs. Fast, accurate, and easy to use.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a>
+                    <a href="charts.html">Charts</a>
+                    <a href="history.html">History</a>
+                    <a href="articles.html">Article</a>
+                    <a href="faq.html">Help & FAQ</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Converters</h4>
+                    <a href="length.html">Length</a>
+                    <a href="area.html">Area</a>
+                    <a href="volume.html">Volume</a>
+                    <a href="mass.html">Mass</a>
+                    <a href="temperature.html">Temperature</a>
+                    <a href="time.html">Time</a>
+                    <a href="angle.html">Angle</a>
+                    <a href="energy-and-power.html">Energy&Power</a>
+                    <a href="currency.html">Currency</a>
+                </div>
+                <div class="footer-bottom">
+                <p>&copy; 2025 MetricConverter. All rights reserved. | eProject by Abdur Rehman, Sidrat Ul Muntaha and Ameema</p>
+            </div>
+        </div>
+    </footer>
+       <script src="script.js"></script>
+    <script>
+        // Mobile Menu Functionality
+        function initMobileMenu() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    mobileMenu.classList.toggle('active');
+                    const icon = this.querySelector('i');
+                    icon.className = mobileMenu.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
+                });
+
+                // Mobile dropdowns
+                const dropdownToggles = document.querySelectorAll('.mobile-dropdown-toggle');
+                dropdownToggles.forEach(toggle => {
+                    toggle.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const dropdown = this.parentElement;
+                        dropdown.classList.toggle('active');
+                        
+                        // Rotate chevron icon
+                        const chevron = this.querySelector('.fa-chevron-down');
+                        if (chevron) {
+                            chevron.style.transform = dropdown.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0deg)';
+                        }
+                    });
+                });
+
+                // Close menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!e.target.closest('.mobile-menu') && !e.target.closest('.mobile-menu-btn')) {
+                        mobileMenu.classList.remove('active');
+                        mobileMenuBtn.querySelector('i').className = 'fas fa-bars';
+                        
+                        // Close all dropdowns
+                        document.querySelectorAll('.mobile-dropdown').forEach(dropdown => {
+                            dropdown.classList.remove('active');
+                            const chevron = dropdown.querySelector('.fa-chevron-down');
+                            if (chevron) {
+                                chevron.style.transform = 'rotate(0deg)';
+                            }
+                        });
+                    }
+                });
+
+                // Prevent menu close when clicking inside menu
+                mobileMenu.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            }
+        }
+
+        // Timeline Navigation
+        document.addEventListener('DOMContentLoaded', function() {
+           
+
+            const timelineNavBtns = document.querySelectorAll('.timeline-nav-btn');
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            
+            // Function to update active nav button
+            function updateActiveNav() {
+                let activeIndex = 0;
+                let minDistance = Number.MAX_VALUE;
+                const windowHeight = window.innerHeight;
+                
+                timelineItems.forEach((item, index) => {
+                    const rect = item.getBoundingClientRect();
+                    const distanceFromCenter = Math.abs(rect.top + rect.height/2 - windowHeight/2);
+                    
+                    if (distanceFromCenter < minDistance) {
+                        minDistance = distanceFromCenter;
+                        activeIndex = index;
+                    }
+                });
+                
+                timelineNavBtns.forEach((btn, index) => {
+                    if (index === activeIndex) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Nav button click functionality
+            timelineNavBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const targetItem = document.getElementById(targetId);
+                    
+                    if (targetItem) {
+                        targetItem.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center'
+                        });
+                    }
+                });
+            });
+            
+            // Scroll progress indicator
+            const progressBar = document.querySelector('.timeline-progress-bar');
+            const timeline = document.querySelector('.timeline');
+            
+            function updateProgressBar() {
+                const timelineRect = timeline.getBoundingClientRect();
+                const timelineTop = timelineRect.top;
+                const timelineHeight = timelineRect.height;
+                const windowHeight = window.innerHeight;
+                
+                let progress = 0;
+                
+                if (timelineTop < 0) {
+                    progress = Math.min(100, Math.abs(timelineTop) / timelineHeight * 100);
+                }
+                
+                progressBar.style.width = `${progress}%`;
+            }
+            
+            // Intersection Observer for timeline items
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+            
+            timelineItems.forEach(item => {
+                observer.observe(item);
+            });
+            
+            // Search functionality
+            const searchInput = document.querySelector('.search-input');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const articleCards = document.querySelectorAll('.article-card');
+            
+            searchInput.addEventListener('input', filterArticles);
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    filterArticles();
+                });
+            });
+            
+            function filterArticles() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+                
+                articleCards.forEach(card => {
+                    const title = card.querySelector('h3').textContent.toLowerCase();
+                    const description = card.querySelector('p').textContent.toLowerCase();
+                    const level = card.getAttribute('data-level');
+                    
+                    const matchesSearch = title.includes(searchTerm) || description.includes(searchTerm);
+                    const matchesFilter = activeFilter === 'all' || level === activeFilter;
+                    
+                    if (matchesSearch && matchesFilter) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            }
+            
+            // Back to Top Button
+            const backToTopBtn = document.querySelector('.back-to-top');
+            
+            window.addEventListener('scroll', function() {
+                updateProgressBar();
+                updateActiveNav();
+                
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Initialize
+            updateProgressBar();
+            updateActiveNav();
+        });
+    </script>
+</body>
+</html>

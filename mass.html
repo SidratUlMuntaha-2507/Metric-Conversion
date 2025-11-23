@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mass Converter - MetricConverter</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚖️</text></svg>">
+    <style>
+      
+
+        /* Hero Section */
+        .converter-hero {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 140px 20px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .floating-shape {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape-1 {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .shape-3 {
+            width: 80px;
+            height: 80px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .header-icon.animated-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .animate-pop-in {
+            animation: popIn 0.8s ease-out;
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .unit-counter {
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .counter-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent-color);
+        }
+
+        /* Glassmorphism Converter Card */
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .converter-card {
+            margin-top: 20px;
+            border-radius: 24px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: visible;
+            background: var(--card-bg);
+            box-shadow: var(--shadow);
+        }
+
+        .converter-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .card-header h2 {
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .converter-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        /* Fancy Input */
+        .fancy-input {
+            position: relative;
+        }
+
+        .fancy-input label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .input-with-actions {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-with-actions input {
+            width: 100%;
+            padding: 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            background: var(--bg-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            padding-right: 60px;
+        }
+
+        .input-with-actions input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 15px;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            opacity: 0.5;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .clear-btn:hover {
+            opacity: 1;
+            background: rgba(0,0,0,0.1);
+        }
+
+        /* Beautiful Custom Dropdown */
+        .units-selection {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 2rem;
+            align-items: start;
+            margin: 2rem 0;
+        }
+
+        .unit-selector {
+            position: relative;
+        }
+
+        .selector-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .custom-dropdown {
+            position: relative;
+        }
+
+        .dropdown-selected {
+            background: var(--bg-color);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 18px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            min-height: 60px;
+        }
+
+        .dropdown-selected:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .selected-value {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        .dropdown-arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown-options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            margin-top: 5px;
+            box-shadow: var(--shadow-hover);
+            z-index: 9999;
+            display: none;
+            overflow: hidden;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .dropdown-options.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .search-box {
+            position: relative;
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 40px 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .search-box i {
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-color);
+            opacity: 0.5;
+        }
+
+        .options-list {
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        .unit-category {
+            padding: 10px 15px;
+            background: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .unit-category i {
+            font-size: 0.8rem;
+        }
+
+        .option {
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .option:last-child {
+            border-bottom: none;
+        }
+
+        .option:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .option i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .option span {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .option small {
+            opacity: 0.7;
+            font-size: 0.8rem;
+        }
+
+        /* Animated Arrow */
+        .animated-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 2rem;
+        }
+
+        .animated-arrow i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            background: var(--bg-color);
+            padding: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--border-color);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Shiny Convert Button */
+        .convert-btn-main {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 16px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 2rem auto;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .convert-btn-main:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-shine {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .convert-btn-main:hover .btn-shine {
+            left: 100%;
+        }
+
+        /* Animated Result Section */
+        .result-section {
+            background: var(--bg-color);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 2rem;
+            border: 2px solid var(--border-color);
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .result-placeholder {
+            text-align: center;
+            color: var(--text-color);
+            opacity: 0.7;
+        }
+
+        .result-placeholder i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+            color: var(--primary-color);
+        }
+
+        .animated-pulse {
+            animation: gentlePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes gentlePulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        .success-result {
+            width: 100%;
+            text-align: center;
+        }
+
+        .result-animation {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            animation: bounce 1s ease-in-out;
+        }
+
+        .result-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .result-details {
+            background: rgba(37, 99, 235, 0.1);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: left;
+        }
+
+        .result-details p {
+            margin-bottom: 0.5rem;
+        }
+
+        .error-message {
+            color: #ff4444;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .error-message i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-section p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .footer-bottom p {
+            opacity: 0.8;
+            font-size: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .units-selection {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .animated-arrow {
+                transform: rotate(90deg);
+                padding: 1rem 0;
+            }
+            
+            .unit-counter {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+        @media (max-width: 768px) {
+
+
+/* Navbar */
+.navbar .nav-menu {
+display: none;
+}
+.mobile-menu-btn {
+display: block;
+}
+
+
+/* Converter Card */
+.converter-card {
+padding: 1.5rem;
+}
+
+
+.units-selection {
+grid-template-columns: 1fr !important;
+gap: 1rem;
+}
+
+
+.animated-arrow {
+transform: rotate(90deg);
+margin: 1rem 0;
+}
+
+
+.dropdown-selected {
+min-height: 55px;
+padding: 14px 18px;
+}
+
+
+.input-with-actions input {
+font-size: 1.1rem;
+padding: 16px;
+}
+
+
+/* Result Section */
+.result-value {
+font-size: 1.2rem;
+}
+
+
+.result-details {
+font-size: 0.9rem;
+}
+
+
+/* Footer */
+.footer-content {
+grid-template-columns: 1fr;
+text-align: center;
+}
+}
+
+
+/* ===== SMALL MOBILES (max-width: 480px) ===== */
+@media (max-width: 480px) {
+
+
+.converter-hero {
+padding: 100px 20px 60px;
+}
+
+
+h1 {
+font-size: 1.8rem !important;
+}
+
+
+.converter-card {
+padding: 1rem;
+}
+
+
+.convert-btn-main {
+padding: 15px 25px;
+font-size: 1rem;
+}
+
+
+.dropdown-selected {
+font-size: 0.9rem;
+}
+
+
+.result-animation {
+font-size: 2.2rem;
+}
+
+
+}
+ </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-ruler-combined"></i>
+                <span>MetricConverter</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">
+                    <a href="index.html"><i class="fas fa-ruler-combined"></i></a>
+                    <span>Home</span>
+                </a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link active">
+                        <i class="fas fa-calculator"></i>
+                        <span>Converters</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                   <div class="dropdown-content">
+                     <a href="length.html"><i class="fas fa-ruler-horizontal"></i> Length</a>
+                     <a href="area.html"><i class="fas fa-border-all"></i> Area</a>
+                     <a href="volume.html"><i class="fas fa-flask"></i> Volume</a>
+                     <a href="mass.html"><i class="fas fa-weight-hanging"></i> Mass</a>
+                     <a href="temperature.html"><i class="fas fa-thermometer-half"></i> Temperature</a>
+                     <a href="time.html"><i class="fas fa-clock"></i> Time</a>
+                     <a href="angle.html"><i class="fas fa-shapes"></i> Angle</a>
+                     <a href="energy-and-power.html"><i class="fas fa-bolt"></i> Energy and Power</a>
+                     <a href="currency.html"><i class="fas fa-money-bill-wave"></i> Currency</a>
+                   </div>
+            </div>
+
+                <a href="charts.html" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Charts</span>
+                </a>
+                <a href="history.html" class="nav-link">
+                    <i class="fas fa-history"></i>
+                    <span>History</span>
+                </a>
+                <a href="articles.html" class="nav-link">
+                    <i class="fas fa-newspaper"></i>
+                    <span>Articles</span>
+                </a>
+                <a href="faq.html" class="nav-link">
+                    <i class="fas fa-question-circle"></i>
+                    <span>FAQ</span>
+                </a>
+            </div>
+            <div class="nav-actions">
+                <button id="darkModeToggle" class="dark-mode-btn">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu  -->
+<div class="mobile-menu">
+    <div class="mobile-nav-links">
+        <a href="index.html" class="mobile-nav-link">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        
+        <!-- Mobile Dropdown for Converters -->
+        <div class="mobile-dropdown">
+            <button class="mobile-dropdown-toggle">
+                <div class="toggle-content">
+                    <i class="fas fa-calculator"></i>
+                    <span>Converters</span>
+                </div>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="mobile-dropdown-content">
+                <a href="length.html" class="mobile-nav-link">
+                    <i class="fas fa-ruler-horizontal"></i>
+                    <span>Length</span>
+                </a>
+                <a href="area.html" class="mobile-nav-link">
+                    <i class="fas fa-border-all"></i>
+                    <span>Area</span>
+                </a>
+                <a href="volume.html" class="mobile-nav-link">
+                    <i class="fas fa-flask"></i>
+                    <span>Volume</span>
+                </a>
+                <a href="mass.html" class="mobile-nav-link active">
+                    <i class="fas fa-weight-hanging"></i>
+                    <span>Mass</span>
+                </a>
+                <a href="temperature.html" class="mobile-nav-link">
+                    <i class="fas fa-thermometer-half"></i>
+                    <span>Temperature</span>
+                </a>
+                <a href="time.html" class="mobile-nav-link">
+                    <i class="fas fa-clock"></i>
+                    <span>Time</span>
+                </a>
+                <a href="angle.html" class="mobile-nav-link">
+                    <i class="fas fa-shapes"></i>
+                    <span>Angle</span>
+                </a>
+                <a href="energy-and-power.html" class="mobile-nav-link">
+                    <i class="fas fa-bolt"></i>
+                    <span>Energy and Power</span>
+                </a>
+                <a href="currency.html" class="mobile-nav-link">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>Currency</span>
+                </a>
+            </div>
+        </div>
+
+        <a href="charts.html" class="mobile-nav-link">
+            <i class="fas fa-chart-bar"></i>
+            <span>Charts</span>
+        </a>
+        <a href="history.html" class="mobile-nav-link">
+            <i class="fas fa-history"></i>
+            <span>History</span>
+        </a>
+        <a href="articles.html" class="mobile-nav-link">
+            <i class="fas fa-newspaper"></i>
+            <span>Articles</span>
+        </a>
+        <a href="faq.html" class="mobile-nav-link">
+            <i class="fas fa-question-circle"></i>
+            <span>FAQ</span>
+        </a>
+    </div>
+</div>
+
+
+    <!-- Animated Hero Section -->
+    <section class="converter-hero">
+        <div class="hero-bg-animation">
+            <div class="floating-shape shape-1"></div>
+            <div class="floating-shape shape-2"></div>
+            <div class="floating-shape shape-3"></div>
+        </div>
+        <div class="container">
+            <div class="converter-header">
+                <div class="header-icon animated-icon">
+                    <i class="fas fa-weight-hanging"></i>
+                </div>
+                <h1 class="animate-pop-in">Mass Converter</h1>
+                <p class="animate-pop-in">Convert between metric and imperial mass units with precision</p>
+                <div class="unit-counter">
+                    <span class="counter-number">15+</span>
+                    <span>Units Supported</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Converter Section -->
+    <section class="converter-section">
+        <div class="container">
+            <!-- Interactive Converter Card -->
+            <div class="converter-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-exchange-alt"></i> Convert Mass</h2>
+                    <div class="converter-actions">
+                        <button class="action-btn" id="swapBtn" title="Swap Units">
+                            <i class="fas fa-random"></i>
+                        </button>
+                        <button class="action-btn" id="resetBtn" title="Reset">
+                            <i class="fas fa-redo"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="converter-body">
+                    <!-- Input Section -->
+                    <div class="input-section">
+                        <div class="input-group fancy-input">
+                            <label for="massValue">
+                                <i class="fas fa-pencil-alt"></i>
+                                Enter Value
+                            </label>
+                            <div class="input-with-actions">
+                                <input type="number" id="massValue" placeholder="0.00" step="any" autofocus>
+                                <button class="clear-btn" id="clearBtn">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Units Selection with Beautiful Dropdowns -->
+                    <div class="units-selection">
+                        <div class="unit-selector">
+                            <div class="selector-header">
+                                <i class="fas fa-arrow-down"></i>
+                                <span>From Unit</span>
+                            </div>
+                            <div class="custom-dropdown">
+                                <div class="dropdown-selected" id="fromDropdownSelected">
+                                    <span class="selected-value">
+                                        <i class="fas fa-weight-hanging"></i>
+                                        Kilograms
+                                    </span>
+                                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+                                </div>
+                                <div class="dropdown-options" id="fromDropdown">
+                                    <div class="search-box">
+                                        <input type="text" placeholder="Search units..." id="fromSearch">
+                                        <i class="fas fa-search"></i>
+                                    </div>
+                                    <div class="options-list">
+                                        <div class="unit-category">
+                                            <i class="fas fa-balance-scale"></i>
+                                            Metric Units
+                                        </div>
+                                        <div class="option" data-value="micrograms">
+                                            <i class="fas fa-dot-circle"></i>
+                                            <span>Micrograms</span>
+                                            <small>μg</small>
+                                        </div>
+                                        <div class="option" data-value="milligrams">
+                                            <i class="fas fa-circle"></i>
+                                            <span>Milligrams</span>
+                                            <small>mg</small>
+                                        </div>
+                                        <div class="option" data-value="grams">
+                                            <i class="fas fa-weight-hanging"></i>
+                                            <span>Grams</span>
+                                            <small>g</small>
+                                        </div>
+                                        <div class="option" data-value="kilograms">
+                                            <i class="fas fa-weight-hanging"></i>
+                                            <span>Kilograms</span>
+                                            <small>kg</small>
+                                        </div>
+                                        <div class="option" data-value="metricTons">
+                                            <i class="fas fa-truck"></i>
+                                            <span>Metric Tons</span>
+                                            <small>t</small>
+                                        </div>
+                                        
+                                        <div class="unit-category">
+                                            <i class="fas fa-weight"></i>
+                                            Imperial Units
+                                        </div>
+                                        <div class="option" data-value="ounces">
+                                            <i class="fas fa-balance-scale-left"></i>
+                                            <span>Ounces</span>
+                                            <small>oz</small>
+                                        </div>
+                                        <div class="option" data-value="pounds">
+                                            <i class="fas fa-weight"></i>
+                                            <span>Pounds</span>
+                                            <small>lb</small>
+                                        </div>
+                                        <div class="option" data-value="stones">
+                                            <i class="fas fa-mountain"></i>
+                                            <span>Stones</span>
+                                            <small>st</small>
+                                        </div>
+                                        <div class="option" data-value="usTons">
+                                            <i class="fas fa-truck-loading"></i>
+                                            <span>US Tons</span>
+                                            <small>ton</small>
+                                        </div>
+                                        <div class="option" data-value="imperialTons">
+                                            <i class="fas fa-truck-moving"></i>
+                                            <span>Imperial Tons</span>
+                                            <small>long ton</small>
+                                        </div>
+                                        
+                                        <div class="unit-category">
+                                            <i class="fas fa-globe-americas"></i>
+                                            Special Units
+                                        </div>
+                                        <div class="option" data-value="carats">
+                                            <i class="fas fa-gem"></i>
+                                            <span>Carats</span>
+                                            <small>ct</small>
+                                        </div>
+                                        <div class="option" data-value="grains">
+                                            <i class="fas fa-seedling"></i>
+                                            <span>Grains</span>
+                                            <small>gr</small>
+                                        </div>
+                                        <div class="option" data-value="pennyweights">
+                                            <i class="fas fa-coins"></i>
+                                            <span>Pennyweights</span>
+                                            <small>dwt</small>
+                                        </div>
+                                        <div class="option" data-value="troyOunces">
+                                            <i class="fas fa-crown"></i>
+                                            <span>Troy Ounces</span>
+                                            <small>oz t</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="convert-arrow animated-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+
+                        <div class="unit-selector">
+                            <div class="selector-header">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>To Unit</span>
+                            </div>
+                            <div class="custom-dropdown">
+                                <div class="dropdown-selected" id="toDropdownSelected">
+                                    <span class="selected-value">
+                                        <i class="fas fa-weight"></i>
+                                        Pounds
+                                    </span>
+                                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+                                </div>
+                                <div class="dropdown-options" id="toDropdown">
+                                    <div class="search-box">
+                                        <input type="text" placeholder="Search units..." id="toSearch">
+                                        <i class="fas fa-search"></i>
+                                    </div>
+                                    <div class="options-list">
+                                        <div class="unit-category">
+                                            <i class="fas fa-weight"></i>
+                                            Imperial Units
+                                        </div>
+                                        <div class="option" data-value="ounces">
+                                            <i class="fas fa-balance-scale-left"></i>
+                                            <span>Ounces</span>
+                                            <small>oz</small>
+                                        </div>
+                                        <div class="option" data-value="pounds">
+                                            <i class="fas fa-weight"></i>
+                                            <span>Pounds</span>
+                                            <small>lb</small>
+                                        </div>
+                                        <div class="option" data-value="stones">
+                                            <i class="fas fa-mountain"></i>
+                                            <span>Stones</span>
+                                            <small>st</small>
+                                        </div>
+                                        <div class="option" data-value="usTons">
+                                            <i class="fas fa-truck-loading"></i>
+                                            <span>US Tons</span>
+                                            <small>ton</small>
+                                        </div>
+                                        <div class="option" data-value="imperialTons">
+                                            <i class="fas fa-truck-moving"></i>
+                                            <span>Imperial Tons</span>
+                                            <small>long ton</small>
+                                        </div>
+                                        
+                                        <div class="unit-category">
+                                            <i class="fas fa-balance-scale"></i>
+                                            Metric Units
+                                        </div>
+                                        <div class="option" data-value="micrograms">
+                                            <i class="fas fa-dot-circle"></i>
+                                            <span>Micrograms</span>
+                                            <small>μg</small>
+                                        </div>
+                                        <div class="option" data-value="milligrams">
+                                            <i class="fas fa-circle"></i>
+                                            <span>Milligrams</span>
+                                            <small>mg</small>
+                                        </div>
+                                        <div class="option" data-value="grams">
+                                            <i class="fas fa-weight-hanging"></i>
+                                            <span>Grams</span>
+                                            <small>g</small>
+                                        </div>
+                                        <div class="option" data-value="kilograms">
+                                            <i class="fas fa-weight-hanging"></i>
+                                            <span>Kilograms</span>
+                                            <small>kg</small>
+                                        </div>
+                                        <div class="option" data-value="metricTons">
+                                            <i class="fas fa-truck"></i>
+                                            <span>Metric Tons</span>
+                                            <small>t</small>
+                                        </div>
+                                        
+                                        <div class="unit-category">
+                                            <i class="fas fa-globe-americas"></i>
+                                            Special Units
+                                        </div>
+                                        <div class="option" data-value="carats">
+                                            <i class="fas fa-gem"></i>
+                                            <span>Carats</span>
+                                            <small>ct</small>
+                                        </div>
+                                        <div class="option" data-value="grains">
+                                            <i class="fas fa-seedling"></i>
+                                            <span>Grains</span>
+                                            <small>gr</small>
+                                        </div>
+                                        <div class="option" data-value="pennyweights">
+                                            <i class="fas fa-coins"></i>
+                                            <span>Pennyweights</span>
+                                            <small>dwt</small>
+                                        </div>
+                                        <div class="option" data-value="troyOunces">
+                                            <i class="fas fa-crown"></i>
+                                            <span>Troy Ounces</span>
+                                            <small>oz t</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Convert Button -->
+                    <button class="convert-btn-main" id="convertBtn">
+                        <i class="fas fa-bolt"></i>
+                        Convert Now
+                        <div class="btn-shine"></div>
+                    </button>
+                </div>
+
+                <!-- Result Display -->
+                <div class="result-section" id="resultSection">
+                    <div class="result-placeholder animated-pulse">
+                        <i class="fas fa-calculator"></i>
+                        <p>Enter values to see magic happen!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+ <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-ruler-combined"></i> MetricConverter</h4>
+                    <p>Your trusted companion for all unit conversion needs. Fast, accurate, and easy to use.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a>
+                    <a href="charts.html">Charts</a>
+                    <a href="history.html">History</a>
+                    <a href="articles.html">Article</a>
+                    <a href="faq.html">Help & FAQ</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Converters</h4>
+                    <a href="length.html">Length</a>
+                    <a href="area.html">Area</a>
+                    <a href="volume.html">Volume</a>
+                    <a href="mass.html">Mass</a>
+                    <a href="temperature.html">Temperature</a>
+                    <a href="time.html">Time</a>
+                    <a href="angle.html">Angle</a>
+                    <a href="energy-and-power.html">Energy&Power</a>
+                    <a href="currency.html">Currency</a>
+                </div>
+                <div class="footer-bottom">
+                <p>&copy; 2025 MetricConverter. All rights reserved. | eProject by Abdur Rehman, Sidrat Ul Muntaha and Ameema</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+    <script>
+        // Global variables
+        let fromUnit = 'kilograms';
+        let toUnit = 'pounds';
+
+        // DOM Elements
+        const fromDropdownSelected = document.getElementById('fromDropdownSelected');
+        const toDropdownSelected = document.getElementById('toDropdownSelected');
+        const fromDropdown = document.getElementById('fromDropdown');
+        const toDropdown = document.getElementById('toDropdown');
+        const fromSearch = document.getElementById('fromSearch');
+        const toSearch = document.getElementById('toSearch');
+        const massValue = document.getElementById('massValue');
+        const resultSection = document.getElementById('resultSection');
+        const convertBtn = document.getElementById('convertBtn');
+        const swapBtn = document.getElementById('swapBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const clearBtn = document.getElementById('clearBtn');
+
+        // Initialize the converter
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up event listeners
+            setupEventListeners();
+            
+            // Auto-convert on page load if there's a value
+            if (massValue.value && massValue.value !== '0') {
+                convertMass();
+            }
+        });
+
+        // Set up all event listeners
+        function setupEventListeners() {
+            // Dropdown toggle
+            fromDropdownSelected.addEventListener('click', () => toggleDropdown(fromDropdown));
+            toDropdownSelected.addEventListener('click', () => toggleDropdown(toDropdown));
+            
+            // Search functionality
+            fromSearch.addEventListener('input', () => filterOptions(fromSearch, fromDropdown));
+            toSearch.addEventListener('input', () => filterOptions(toSearch, toDropdown));
+            
+            // Unit selection
+            document.querySelectorAll('#fromDropdown .option').forEach(option => {
+                option.addEventListener('click', () => selectUnit(option, 'from'));
+            });
+            
+            document.querySelectorAll('#toDropdown .option').forEach(option => {
+                option.addEventListener('click', () => selectUnit(option, 'to'));
+            });
+            
+            // Convert button
+            convertBtn.addEventListener('click', convertMass);
+            
+            // Swap units
+            swapBtn.addEventListener('click', swapUnits);
+            
+            // Reset converter
+            resetBtn.addEventListener('click', resetConverter);
+            
+            // Clear input
+            clearBtn.addEventListener('click', clearInput);
+            
+            // Auto-convert on input change
+            massValue.addEventListener('input', function() {
+                if (this.value && this.value !== '0') {
+                    convertMass();
+                } else {
+                    showPlaceholder();
+                }
+            });
+            
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!fromDropdownSelected.contains(event.target) && !fromDropdown.contains(event.target)) {
+                    fromDropdown.classList.remove('active');
+                }
+                if (!toDropdownSelected.contains(event.target) && !toDropdown.contains(event.target)) {
+                    toDropdown.classList.remove('active');
+                }
+            });
+        }
+
+        // Toggle dropdown visibility
+        function toggleDropdown(dropdown) {
+            // Close all other dropdowns
+            document.querySelectorAll('.dropdown-options').forEach(d => {
+                if (d !== dropdown) d.classList.remove('active');
+            });
+            
+            // Toggle current dropdown
+            dropdown.classList.toggle('active');
+            
+            // Update arrow rotation
+            const arrow = dropdown.parentElement.querySelector('.dropdown-arrow');
+            if (dropdown.classList.contains('active')) {
+                arrow.style.transform = 'rotate(180deg)';
+            } else {
+                arrow.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Filter dropdown options based on search
+        function filterOptions(searchInput, dropdown) {
+            const searchTerm = searchInput.value.toLowerCase();
+            const options = dropdown.querySelectorAll('.option');
+            
+            options.forEach(option => {
+                const text = option.querySelector('span').textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    option.style.display = 'flex';
+                } else {
+                    option.style.display = 'none';
+                }
+            });
+        }
+
+        // Select a unit from dropdown
+        function selectUnit(option, type) {
+            const value = option.getAttribute('data-value');
+            const text = option.querySelector('span').textContent;
+            const icon = option.querySelector('i').className;
+            
+            if (type === 'from') {
+                fromUnit = value;
+                fromDropdownSelected.querySelector('.selected-value').innerHTML = `<i class="${icon}"></i> ${text}`;
+                fromDropdown.classList.remove('active');
+                fromDropdownSelected.querySelector('.dropdown-arrow').style.transform = 'rotate(0deg)';
+            } else {
+                toUnit = value;
+                toDropdownSelected.querySelector('.selected-value').innerHTML = `<i class="${icon}"></i> ${text}`;
+                toDropdown.classList.remove('active');
+                toDropdownSelected.querySelector('.dropdown-arrow').style.transform = 'rotate(0deg)';
+            }
+            
+            // Auto-convert if there's a value
+            if (massValue.value && massValue.value !== '0') {
+                convertMass();
+            }
+        }
+
+        // Swap the from and to units
+        function swapUnits() {
+            // Swap unit values
+            [fromUnit, toUnit] = [toUnit, fromUnit];
+            
+            // Swap displayed values
+            const fromDisplay = fromDropdownSelected.querySelector('.selected-value').innerHTML;
+            const toDisplay = toDropdownSelected.querySelector('.selected-value').innerHTML;
+            
+            fromDropdownSelected.querySelector('.selected-value').innerHTML = toDisplay;
+            toDropdownSelected.querySelector('.selected-value').innerHTML = fromDisplay;
+            
+            // Auto-convert if there's a value
+            if (massValue.value && massValue.value !== '0') {
+                convertMass();
+            }
+        }
+
+        // Reset the converter
+        function resetConverter() {
+            massValue.value = '';
+            showPlaceholder();
+        }
+
+        // Clear the input field
+        function clearInput() {
+            massValue.value = '';
+            massValue.focus();
+            showPlaceholder();
+        }
+
+        // Show placeholder result
+        function showPlaceholder() {
+            resultSection.innerHTML = `
+                <div class="result-placeholder animated-pulse">
+                    <i class="fas fa-calculator"></i>
+                    <p>Enter values to see magic happen!</p>
+                </div>
+            `;
+        }
+
+        // Show error message
+        function showError(message) {
+            resultSection.innerHTML = `
+                <div class="error-message">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>${message}</p>
+                </div>
+            `;
+        }
+
+        // Show success result
+        function showResult(value, result) {
+            // Get unit names
+            const fromUnitName = fromDropdownSelected.querySelector('span').textContent.trim();
+            const toUnitName = toDropdownSelected.querySelector('span').textContent.trim();
+            
+            resultSection.innerHTML = `
+                <div class="success-result">
+                    <div class="result-animation">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="result-value">${result} ${toUnitName}</div>
+                    <div class="result-details">
+                        <p><strong>${value}</strong> ${fromUnitName} = <strong>${result}</strong> ${toUnitName}</p>
+                        <p>Conversion: ${fromUnitName} → ${toUnitName}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Convert mass units
+        function convertMass() {
+            const value = parseFloat(massValue.value);
+            
+            // Validate input
+            if (isNaN(value)) {
+                showError("Please enter a valid number");
+                return;
+            }
+            
+            if (value < 0) {
+                showError("Mass cannot be negative");
+                return;
+            }
+            
+            // Convert to kilograms first (base unit)
+            let valueInKilograms = 0;
+            
+            // Convert from unit to kilograms
+            switch(fromUnit) {
+                // Metric units
+                case 'micrograms':
+                    valueInKilograms = value * 0.000000001;
+                    break;
+                case 'milligrams':
+                    valueInKilograms = value * 0.000001;
+                    break;
+                case 'grams':
+                    valueInKilograms = value * 0.001;
+                    break;
+                case 'kilograms':
+                    valueInKilograms = value;
+                    break;
+                case 'metricTons':
+                    valueInKilograms = value * 1000;
+                    break;
+                    
+                // Imperial units
+                case 'ounces':
+                    valueInKilograms = value * 0.0283495;
+                    break;
+                case 'pounds':
+                    valueInKilograms = value * 0.453592;
+                    break;
+                case 'stones':
+                    valueInKilograms = value * 6.35029;
+                    break;
+                case 'usTons':
+                    valueInKilograms = value * 907.185;
+                    break;
+                case 'imperialTons':
+                    valueInKilograms = value * 1016.05;
+                    break;
+                    
+                // Special units
+                case 'carats':
+                    valueInKilograms = value * 0.0002;
+                    break;
+                case 'grains':
+                    valueInKilograms = value * 0.0000647989;
+                    break;
+                case 'pennyweights':
+                    valueInKilograms = value * 0.00155517;
+                    break;
+                case 'troyOunces':
+                    valueInKilograms = value * 0.0311035;
+                    break;
+                    
+                default:
+                    valueInKilograms = value;
+            }
+            
+            // Convert from kilograms to target unit
+            let result = 0;
+            
+            switch(toUnit) {
+                // Metric units
+                case 'micrograms':
+                    result = valueInKilograms / 0.000000001;
+                    break;
+                case 'milligrams':
+                    result = valueInKilograms / 0.000001;
+                    break;
+                case 'grams':
+                    result = valueInKilograms / 0.001;
+                    break;
+                case 'kilograms':
+                    result = valueInKilograms;
+                    break;
+                case 'metricTons':
+                    result = valueInKilograms / 1000;
+                    break;
+                    
+                // Imperial units
+                case 'ounces':
+                    result = valueInKilograms / 0.0283495;
+                    break;
+                case 'pounds':
+                    result = valueInKilograms / 0.453592;
+                    break;
+                case 'stones':
+                    result = valueInKilograms / 6.35029;
+                    break;
+                case 'usTons':
+                    result = valueInKilograms / 907.185;
+                    break;
+                case 'imperialTons':
+                    result = valueInKilograms / 1016.05;
+                    break;
+                    
+                // Special units
+                case 'carats':
+                    result = valueInKilograms / 0.0002;
+                    break;
+                case 'grains':
+                    result = valueInKilograms / 0.0000647989;
+                    break;
+                case 'pennyweights':
+                    result = valueInKilograms / 0.00155517;
+                    break;
+                case 'troyOunces':
+                    result = valueInKilograms / 0.0311035;
+                    break;
+                    
+                default:
+                    result = valueInKilograms;
+            }
+            
+            // Format the result
+            const formattedResult = formatNumber(result);
+            
+            // Display the result
+            showResult(value, formattedResult);
+        }
+
+        // Format number for display
+        function formatNumber(num) {
+            if (num === 0) return '0';
+            
+            // For very small numbers, use scientific notation
+            if (Math.abs(num) < 0.000001) {
+                return num.toExponential(6);
+            }
+            
+            // For very large numbers, use scientific notation
+            if (Math.abs(num) > 1000000000) {
+                return num.toExponential(6);
+            }
+            
+            // Determine the number of decimal places based on the value
+            let decimalPlaces = 6;
+            if (Math.abs(num) < 0.01) {
+                decimalPlaces = 10;
+            } else if (Math.abs(num) < 1) {
+                decimalPlaces = 8;
+            } else if (Math.abs(num) < 100) {
+                decimalPlaces = 6;
+            } else if (Math.abs(num) < 10000) {
+                decimalPlaces = 4;
+            } else {
+                decimalPlaces = 2;
+            }
+            
+            // Format the number with the appropriate decimal places
+            return parseFloat(num.toFixed(decimalPlaces)).toString();
+        }
+       </script>
+</body>
+</html>

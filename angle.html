@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angle Converter - MetricConverter</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📐</text></svg>">
+    <style>
+       
+
+        /* Hero Section */
+        .converter-hero {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 140px 20px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .floating-shape {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape-1 {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .shape-3 {
+            width: 80px;
+            height: 80px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .header-icon.animated-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .animate-pop-in {
+            animation: popIn 0.8s ease-out;
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .unit-counter {
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .counter-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent-color);
+        }
+
+        /* Glassmorphism Converter Card */
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .converter-card {
+            margin-top: 20px;
+            border-radius: 24px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: visible;
+            background: var(--card-bg);
+            box-shadow: var(--shadow);
+        }
+
+        .converter-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .card-header h2 {
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .converter-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        /* Fancy Input */
+        .fancy-input {
+            position: relative;
+        }
+
+        .fancy-input label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .input-with-actions {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-with-actions input {
+            width: 100%;
+            padding: 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            background: var(--bg-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            padding-right: 60px;
+        }
+
+        .input-with-actions input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 15px;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            opacity: 0.5;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .clear-btn:hover {
+            opacity: 1;
+            background: rgba(0,0,0,0.1);
+        }
+
+        /* Beautiful Custom Dropdown */
+        .units-selection {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 2rem;
+            align-items: start;
+            margin: 2rem 0;
+        }
+
+        .unit-selector {
+            position: relative;
+        }
+
+        .selector-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .custom-dropdown {
+            position: relative;
+        }
+
+        .dropdown-selected {
+            background: var(--bg-color);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 18px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            min-height: 60px;
+        }
+
+        .dropdown-selected:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .selected-value {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        .dropdown-arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown-options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            margin-top: 5px;
+            box-shadow: var(--shadow-hover);
+            z-index: 9999;
+            display: none;
+            overflow: hidden;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .dropdown-options.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .search-box {
+            position: relative;
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 40px 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .search-box i {
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-color);
+            opacity: 0.5;
+        }
+
+        .options-list {
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        .unit-category {
+            padding: 10px 15px;
+            background: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .unit-category i {
+            font-size: 0.8rem;
+        }
+
+        .option {
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .option:last-child {
+            border-bottom: none;
+        }
+
+        .option:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .option i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .option span {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .option small {
+            opacity: 0.7;
+            font-size: 0.8rem;
+        }
+
+        /* Animated Arrow */
+        .animated-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 2rem;
+        }
+
+        .animated-arrow i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            background: var(--bg-color);
+            padding: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--border-color);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Shiny Convert Button */
+        .convert-btn-main {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 16px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 2rem auto;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .convert-btn-main:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-shine {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .convert-btn-main:hover .btn-shine {
+            left: 100%;
+        }
+
+        /* Animated Result Section */
+        .result-section {
+            background: var(--bg-color);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 2rem;
+            border: 2px solid var(--border-color);
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .result-placeholder {
+            text-align: center;
+            color: var(--text-color);
+            opacity: 0.7;
+        }
+
+        .result-placeholder i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+            color: var(--primary-color);
+        }
+
+        .animated-pulse {
+            animation: gentlePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes gentlePulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        .success-result {
+            width: 100%;
+            text-align: center;
+        }
+
+        .result-animation {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            animation: bounce 1s ease-in-out;
+        }
+
+        .result-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .result-details {
+            background: rgba(37, 99, 235, 0.1);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: left;
+        }
+
+        .result-details p {
+            margin-bottom: 0.5rem;
+        }
+
+        .error-message {
+            color: #ff4444;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .error-message i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* Angle-specific styles */
+        .angle-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .angle-example-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .angle-example-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .angle-example-card i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .angle-example-card h4 {
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .angle-example-card p {
+            color: var(--text-color);
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .angle-visual {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1rem;
+            background: conic-gradient(var(--primary-color) 0%, transparent 0%);
+            border-radius: 50%;
+            border: 3px solid var(--border-color);
+            position: relative;
+        }
+
+        .angle-visual::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 2px;
+            height: 45px;
+            background: var(--accent-color);
+            transform-origin: bottom center;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-section p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .footer-bottom p {
+            opacity: 0.8;
+            font-size: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .units-selection {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .animated-arrow {
+                transform: rotate(90deg);
+                padding: 1rem 0;
+            }
+            
+            .unit-counter {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .angle-examples {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 768px) {
+
+
+/* Navbar */
+.navbar .nav-menu {
+display: none;
+}
+.mobile-menu-btn {
+display: block;
+}
+
+
+/* Converter Card */
+.converter-card {
+padding: 1.5rem;
+}
+
+
+.units-selection {
+grid-template-columns: 1fr !important;
+gap: 1rem;
+}
+
+
+.animated-arrow {
+transform: rotate(90deg);
+margin: 1rem 0;
+}
+
+
+.dropdown-selected {
+min-height: 55px;
+padding: 14px 18px;
+}
+
+
+.input-with-actions input {
+font-size: 1.1rem;
+padding: 16px;
+}
+
+
+/* Result Section */
+.result-value {
+font-size: 1.2rem;
+}
+
+
+.result-details {
+font-size: 0.9rem;
+}
+
+
+/* Footer */
+.footer-content {
+grid-template-columns: 1fr;
+text-align: center;
+}
+}
+
+
+/* ===== SMALL MOBILES (max-width: 480px) ===== */
+@media (max-width: 480px) {
+
+
+.converter-hero {
+padding: 100px 20px 60px;
+}
+
+
+h1 {
+font-size: 1.8rem !important;
+}
+
+
+.converter-card {
+padding: 1rem;
+}
+
+
+.convert-btn-main {
+padding: 15px 25px;
+font-size: 1rem;
+}
+
+
+.dropdown-selected {
+font-size: 0.9rem;
+}
+
+
+.result-animation {
+font-size: 2.2rem;
+}
+
+
+}       
+
+    </style>
+</head>
+<body>
+     <!-- Top Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html"><i class="fas fa-ruler-combined"></i></a>
+                <span>MetricConverter</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link active">
+                        <i class="fas fa-calculator"></i>
+                        <span>Converters</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                   <div class="dropdown-content">
+                     <a href="length.html"><i class="fas fa-ruler-horizontal"></i> Length</a>
+                     <a href="area.html"><i class="fas fa-border-all"></i> Area</a>
+                     <a href="volume.html"><i class="fas fa-flask"></i> Volume</a>
+                     <a href="mass.html"><i class="fas fa-weight-hanging"></i> Mass</a>
+                     <a href="temperature.html"><i class="fas fa-thermometer-half"></i> Temperature</a>
+                     <a href="time.html"><i class="fas fa-clock"></i> Time</a>
+                     <a href="angle.html"><i class="fas fa-shapes"></i> Angle</a>
+                     <a href="energy-and-power.html"><i class="fas fa-bolt"></i> Energy and Power</a>
+                     <a href="currency.html"><i class="fas fa-money-bill-wave"></i> Currency</a>
+                   </div>
+            </div>
+
+                <a href="charts.html" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Charts</span>
+                </a>
+                <a href="history.html" class="nav-link">
+                    <i class="fas fa-history"></i>
+                    <span>History</span>
+                </a>
+                <a href="articles.html" class="nav-link">
+                    <i class="fas fa-newspaper"></i>
+                    <span>Articles</span>
+                </a>
+                <a href="faq.html" class="nav-link">
+                    <i class="fas fa-question-circle"></i>
+                    <span>FAQ</span>
+                </a>
+            </div>
+            <div class="nav-actions">
+                <button id="darkModeToggle" class="dark-mode-btn">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu  -->
+<div class="mobile-menu">
+    <div class="mobile-nav-links">
+        <a href="index.html" class="mobile-nav-link">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        
+        <!-- Mobile Dropdown for Converters -->
+        <div class="mobile-dropdown">
+            <button class="mobile-dropdown-toggle">
+                <div class="toggle-content">
+                    <i class="fas fa-calculator"></i>
+                    <span>Converters</span>
+                </div>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="mobile-dropdown-content">
+                <a href="length.html" class="mobile-nav-link">
+                    <i class="fas fa-ruler-horizontal"></i>
+                    <span>Length</span>
+                </a>
+                <a href="area.html" class="mobile-nav-link">
+                    <i class="fas fa-border-all"></i>
+                    <span>Area</span>
+                </a>
+                <a href="volume.html" class="mobile-nav-link">
+                    <i class="fas fa-flask"></i>
+                    <span>Volume</span>
+                </a>
+                <a href="mass.html" class="mobile-nav-link">
+                    <i class="fas fa-weight-hanging"></i>
+                    <span>Mass</span>
+                </a>
+                <a href="temperature.html" class="mobile-nav-link">
+                    <i class="fas fa-thermometer-half"></i>
+                    <span>Temperature</span>
+                </a>
+                <a href="time.html" class="mobile-nav-link">
+                    <i class="fas fa-clock"></i>
+                    <span>Time</span>
+                </a>
+                <a href="angle.html" class="mobile-nav-link active">
+                    <i class="fas fa-shapes"></i>
+                    <span>Angle</span>
+                </a>
+                <a href="energy-and-power.html" class="mobile-nav-link">
+                    <i class="fas fa-bolt"></i>
+                    <span>Energy and Power</span>
+                </a>
+                <a href="currency.html" class="mobile-nav-link">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>Currency</span>
+                </a>
+            </div>
+        </div>
+
+        <a href="charts.html" class="mobile-nav-link">
+            <i class="fas fa-chart-bar"></i>
+            <span>Charts</span>
+        </a>
+        <a href="history.html" class="mobile-nav-link">
+            <i class="fas fa-history"></i>
+            <span>History</span>
+        </a>
+        <a href="articles.html" class="mobile-nav-link">
+            <i class="fas fa-newspaper"></i>
+            <span>Articles</span>
+        </a>
+        <a href="faq.html" class="mobile-nav-link">
+            <i class="fas fa-question-circle"></i>
+            <span>FAQ</span>
+        </a>
+    </div>
+</div>
+
+
+    <!-- Animated Hero Section -->
+    <section class="converter-hero">
+        <div class="hero-bg-animation">
+            <div class="floating-shape shape-1"></div>
+            <div class="floating-shape shape-2"></div>
+            <div class="floating-shape shape-3"></div>
+        </div>
+        <div class="container">
+            <div class="converter-header">
+                <div class="header-icon animated-icon">
+                    <i class="fas fa-shapes"></i>
+                </div>
+                <h1 class="animate-pop-in">Angle Converter</h1>
+                <p class="animate-pop-in">Convert between different angle units with precision and ease</p>
+                <div class="unit-counter">
+                    <span class="counter-number">10+</span>
+                    <span>Angle Units Supported</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Converter Section -->
+    <section class="converter-section">
+        <div class="container">
+            <!-- Interactive Converter Card -->
+            <div class="converter-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-exchange-alt"></i> Convert Angle</h2>
+                    <div class="converter-actions">
+                        <button class="action-btn" id="swapBtn" title="Swap Units">
+                            <i class="fas fa-random"></i>
+                        </button>
+                        <button class="action-btn" id="resetBtn" title="Reset">
+                            <i class="fas fa-redo"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="converter-body">
+                    <!-- Input Section -->
+                    <div class="input-section">
+                        <div class="input-group fancy-input">
+                            <label for="angleValue">
+                                <i class="fas fa-pencil-alt"></i>
+                                Enter Angle Value
+                            </label>
+                            <div class="input-with-actions">
+                                <input type="number" id="angleValue" placeholder="0.00" step="any" autofocus>
+                                <button class="clear-btn" id="clearBtn">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Units Selection with Beautiful Dropdowns -->
+                    <div class="units-selection">
+                        <div class="unit-selector">
+                            <div class="selector-header">
+                                <i class="fas fa-arrow-down"></i>
+                                <span>From Unit</span>
+                            </div>
+                            <div class="custom-dropdown">
+                                <div class="dropdown-selected" id="fromDropdownSelected">
+                                    <span class="selected-value">
+                                        <i class="fas fa-circle"></i>
+                                        Degrees
+                                    </span>
+                                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+                                </div>
+                                <div class="dropdown-options" id="fromDropdown">
+                                    <div class="search-box">
+                                        <input type="text" placeholder="Search units..." id="fromSearch">
+                                        <i class="fas fa-search"></i>
+                                    </div>
+                                    <div class="options-list">
+                                        <div class="unit-category">
+                                            <i class="fas fa-protractor"></i>
+                                            Common Angle Units
+                                        </div>
+                                        <div class="option" data-value="degrees">
+                                            <i class="fas fa-circle"></i>
+                                            <span>Degrees</span>
+                                            <small>°</small>
+                                        </div>
+                                        <div class="option" data-value="radians">
+                                            <i class="fas fa-circle-notch"></i>
+                                            <span>Radians</span>
+                                            <small>rad</small>
+                                        </div>
+                                        <div class="option" data-value="gradians">
+                                            <i class="fas fa-square"></i>
+                                            <span>Gradians</span>
+                                            <small>gon</small>
+                                        </div>
+                                        <div class="option" data-value="turns">
+                                            <i class="fas fa-redo"></i>
+                                            <span>Turns (Revolutions)</span>
+                                            <small>turn</small>
+                                        </div>
+                                        
+                                        <div class="unit-category">
+                                            <i class="fas fa-compass"></i>
+                                            Navigation & Surveying
+                                        </div>
+                                        <div class="option" data-value="minutes">
+                                            <i class="fas fa-clock"></i>
+                                            <span>Arcminutes</span>
+                                            <small>′</small>
+                                        </div>
+                                        <div class="option" data-value="seconds">
+                                            <i class="fas fa-stopwatch"></i>
+                                            <span>Arcseconds</span>
+                                            <small>″</small>
+                                        </div>
+                                        <div class="option" data-value="mils">
+                                            <i class="fas fa-bullseye"></i>
+                                            <span>Mils (NATO)</span>
+                                            <small>mil</small>
+                                        </div>
+                                        
+                                        <div class="unit-category">
+                                            <i class="fas fa-star"></i>
+                                            Special Units
+                                        </div>
+                                        <div class="option" data-value="points">
+                                            <i class="fas fa-dharmachakra"></i>
+                                            <span>Points</span>
+                                            <small>pt</small>
+                                        </div>
+                                        <div class="option" data-value="hourangle">
+                                            <i class="fas fa-clock"></i>
+                                            <span>Hour Angle</span>
+                                            <small>h</small>
+                                        </div>
+                                        <div class="option" data-value="binary">
+                                            <i class="fas fa-laptop-code"></i>
+                                            <span>Binary Degrees</span>
+                                            <small>brad</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="convert-arrow animated-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+
+                        <div class="unit-selector">
+                            <div class="selector-header">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>To Unit</span>
+                            </div>
+                            <div class="custom-dropdown">
+                                <div class="dropdown-selected" id="toDropdownSelected">
+                                    <span class="selected-value">
+                                        <i class="fas fa-circle-notch"></i>
+                                        Radians
+                                    </span>
+                                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+                                </div>
+                                <div class="dropdown-options" id="toDropdown">
+                                    <div class="search-box">
+                                        <input type="text" placeholder="Search units..." id="toSearch">
+                                        <i class="fas fa-search"></i>
+                                    </div>
+                                    <div class="options-list">
+                                        <div class="unit-category">
+                                            <i class="fas fa-protractor"></i>
+                                            Common Angle Units
+                                        </div>
+                                        <div class="option" data-value="radians">
+                                            <i class="fas fa-circle-notch"></i>
+                                            <span>Radians</span>
+                                            <small>rad</small>
+                                        </div>
+                                        <div class="option" data-value="degrees">
+                                            <i class="fas fa-circle"></i>
+                                            <span>Degrees</span>
+                                            <small>°</small>
+                                        </div>
+                                        <div class="option" data-value="gradians">
+                                            <i class="fas fa-square"></i>
+                                            <span>Gradians</span>
+                                            <small>gon</small>
+                                        </div>
+                                        <div class="option" data-value="turns">
+                                            <i class="fas fa-redo"></i>
+                                            <span>Turns (Revolutions)</span>
+                                            <small>turn</small>
+                                        </div>
+                                        
+                                        <div class="unit-category">
+                                            <i class="fas fa-compass"></i>
+                                            Navigation & Surveying
+                                        </div>
+                                        <div class="option" data-value="minutes">
+                                            <i class="fas fa-clock"></i>
+                                            <span>Arcminutes</span>
+                                            <small>′</small>
+                                        </div>
+                                        <div class="option" data-value="seconds">
+                                            <i class="fas fa-stopwatch"></i>
+                                            <span>Arcseconds</span>
+                                            <small>″</small>
+                                        </div>
+                                        <div class="option" data-value="mils">
+                                            <i class="fas fa-bullseye"></i>
+                                            <span>Mils (NATO)</span>
+                                            <small>mil</small>
+                                        </div>
+                                        
+                                        <div class="unit-category">
+                                            <i class="fas fa-star"></i>
+                                            Special Units
+                                        </div>
+                                        <div class="option" data-value="points">
+                                            <i class="fas fa-dharmachakra"></i>
+                                            <span>Points</span>
+                                            <small>pt</small>
+                                        </div>
+                                        <div class="option" data-value="hourangle">
+                                            <i class="fas fa-clock"></i>
+                                            <span>Hour Angle</span>
+                                            <small>h</small>
+                                        </div>
+                                        <div class="option" data-value="binary">
+                                            <i class="fas fa-laptop-code"></i>
+                                            <span>Binary Degrees</span>
+                                            <small>brad</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Convert Button -->
+                    <button class="convert-btn-main" id="convertBtn">
+                        <i class="fas fa-bolt"></i>
+                        Convert Angle
+                        <div class="btn-shine"></div>
+                    </button>
+                </div>
+
+                <!-- Result Display -->
+                <div class="result-section" id="resultSection">
+                    <div class="result-placeholder animated-pulse">
+                        <i class="fas fa-shapes"></i>
+                        <p>Enter angle values to see conversion results!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Angle Examples Section -->
+            <div class="converter-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-lightbulb"></i> Common Angle Conversions</h2>
+                </div>
+                <div class="angle-examples">
+                    <div class="angle-example-card">
+                        <div class="angle-visual" style="background: conic-gradient(var(--primary-color) 90deg, transparent 0%);"></div>
+                        <h4>Right Angle</h4>
+                        <p>90° = π/2 rad = 100 gon</p>
+                    </div>
+                    <div class="angle-example-card">
+                        <div class="angle-visual" style="background: conic-gradient(var(--primary-color) 180deg, transparent 0%);"></div>
+                        <h4>Straight Angle</h4>
+                        <p>180° = π rad = 200 gon</p>
+                    </div>
+                    <div class="angle-example-card">
+                        <div class="angle-visual" style="background: conic-gradient(var(--primary-color) 360deg, transparent 0%);"></div>
+                        <h4>Full Circle</h4>
+                        <p>360° = 2π rad = 400 gon</p>
+                    </div>
+                    <div class="angle-example-card">
+                        <i class="fas fa-bullseye"></i>
+                        <h4>Military Use</h4>
+                        <p>1 mil ≈ 0.05625° (NATO standard)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+      <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-ruler-combined"></i> MetricConverter</h4>
+                    <p>Your trusted companion for all unit conversion needs. Fast, accurate, and easy to use.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a>
+                    <a href="charts.html">Charts</a>
+                    <a href="history.html">History</a>
+                    <a href="articles.html">Article</a>
+                    <a href="faq.html">Help & FAQ</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Converters</h4>
+                    <a href="length.html">Length</a>
+                    <a href="area.html">Area</a>
+                    <a href="volume.html">Volume</a>
+                    <a href="mass.html">Mass</a>
+                    <a href="temperature.html">Temperature</a>
+                    <a href="time.html">Time</a>
+                    <a href="angle.html">Angle</a>
+                    <a href="energy-and-power.html">Energy&Power</a>
+                    <a href="currency.html">Currency</a>
+                </div>
+                <div class="footer-bottom">
+                <p>&copy; 2025 MetricConverter. All rights reserved. | eProject by Abdur Rehman, Sidrat Ul Muntaha and Ameema</p>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+
+    <script>
+        // Global variables
+        let fromUnit = 'degrees';
+        let toUnit = 'radians';
+
+        // DOM Elements
+        const fromDropdownSelected = document.getElementById('fromDropdownSelected');
+        const toDropdownSelected = document.getElementById('toDropdownSelected');
+        const fromDropdown = document.getElementById('fromDropdown');
+        const toDropdown = document.getElementById('toDropdown');
+        const fromSearch = document.getElementById('fromSearch');
+        const toSearch = document.getElementById('toSearch');
+        const angleValue = document.getElementById('angleValue');
+        const resultSection = document.getElementById('resultSection');
+        const convertBtn = document.getElementById('convertBtn');
+        const swapBtn = document.getElementById('swapBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const clearBtn = document.getElementById('clearBtn');
+
+        // Initialize the converter
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up event listeners
+            setupEventListeners();
+            
+            // Auto-convert on page load if there's a value
+            if (angleValue.value && !isNaN(parseFloat(angleValue.value))) {
+                convertAngle();
+            }
+        });
+
+        // Set up all event listeners
+        function setupEventListeners() {
+            // Dropdown toggle
+            fromDropdownSelected.addEventListener('click', () => toggleDropdown('from'));
+            toDropdownSelected.addEventListener('click', () => toggleDropdown('to'));
+            
+            // Unit selection
+            document.querySelectorAll('#fromDropdown .option').forEach(option => {
+                option.addEventListener('click', () => selectUnit(option.getAttribute('data-value'), 'from'));
+            });
+            
+            document.querySelectorAll('#toDropdown .option').forEach(option => {
+                option.addEventListener('click', () => selectUnit(option.getAttribute('data-value'), 'to'));
+            });
+            
+            // Search functionality
+            fromSearch.addEventListener('input', () => filterUnits(fromSearch, 'fromDropdown'));
+            toSearch.addEventListener('input', () => filterUnits(toSearch, 'toDropdown'));
+            
+            // Button actions
+            convertBtn.addEventListener('click', convertAngle);
+            swapBtn.addEventListener('click', swapUnits);
+            resetBtn.addEventListener('click', resetConverter);
+            clearBtn.addEventListener('click', clearInput);
+            
+            // Auto-convert on input
+            angleValue.addEventListener('input', function() {
+                if (this.value && !isNaN(parseFloat(this.value))) {
+                    convertAngle();
+                } else {
+                    showPlaceholder();
+                }
+            });
+            
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!event.target.closest('.custom-dropdown')) {
+                    closeAllDropdowns();
+                }
+            });
+        }
+
+        // Toggle dropdown visibility
+        function toggleDropdown(type) {
+            const dropdown = type === 'from' ? fromDropdown : toDropdown;
+            const arrow = type === 'from' 
+                ? fromDropdownSelected.querySelector('.dropdown-arrow')
+                : toDropdownSelected.querySelector('.dropdown-arrow');
+            
+            // Close all dropdowns first
+            closeAllDropdowns();
+            
+            // Toggle current dropdown
+            if (!dropdown.classList.contains('active')) {
+                dropdown.classList.add('active');
+                arrow.style.transform = 'rotate(180deg)';
+                
+                // Focus on search input
+                if (type === 'from') {
+                    setTimeout(() => fromSearch.focus(), 100);
+                } else {
+                    setTimeout(() => toSearch.focus(), 100);
+                }
+            }
+        }
+
+        // Close all dropdowns
+        function closeAllDropdowns() {
+            fromDropdown.classList.remove('active');
+            toDropdown.classList.remove('active');
+            
+            // Reset arrows
+            fromDropdownSelected.querySelector('.dropdown-arrow').style.transform = 'rotate(0deg)';
+            toDropdownSelected.querySelector('.dropdown-arrow').style.transform = 'rotate(0deg)';
+            
+            // Clear search inputs
+            fromSearch.value = '';
+            toSearch.value = '';
+            
+            // Show all options
+            document.querySelectorAll('.option').forEach(option => {
+                option.style.display = 'flex';
+            });
+        }
+
+        // Select unit from dropdown
+        function selectUnit(unit, type) {
+            if (type === 'from') {
+                fromUnit = unit;
+                updateDropdownDisplay(fromDropdownSelected, unit);
+            } else {
+                toUnit = unit;
+                updateDropdownDisplay(toDropdownSelected, unit);
+            }
+            
+            closeAllDropdowns();
+            
+            // Auto-convert if value exists
+            if (angleValue.value && !isNaN(parseFloat(angleValue.value))) {
+                convertAngle();
+            }
+        }
+
+        // Update dropdown display
+        function updateDropdownDisplay(dropdownElement, unit) {
+            const iconClass = getUnitIcon(unit);
+            const displayName = getUnitDisplayName(unit);
+            
+            dropdownElement.querySelector('.selected-value').innerHTML = `
+                <i class="${iconClass}"></i>
+                ${displayName}
+            `;
+        }
+
+        // Get icon for unit
+        function getUnitIcon(unit) {
+            const icons = {
+                'degrees': 'fas fa-circle',
+                'radians': 'fas fa-circle-notch',
+                'gradians': 'fas fa-square',
+                'turns': 'fas fa-redo',
+                'minutes': 'fas fa-clock',
+                'seconds': 'fas fa-stopwatch',
+                'mils': 'fas fa-bullseye',
+                'points': 'fas fa-dharmachakra',
+                'hourangle': 'fas fa-clock',
+                'binary': 'fas fa-laptop-code'
+            };
+            return icons[unit] || 'fas fa-shapes';
+        }
+
+        // Get display name for unit
+        function getUnitDisplayName(unit) {
+            const unitNames = {
+                'degrees': 'Degrees',
+                'radians': 'Radians',
+                'gradians': 'Gradians',
+                'turns': 'Turns (Revolutions)',
+                'minutes': 'Arcminutes',
+                'seconds': 'Arcseconds',
+                'mils': 'Mils (NATO)',
+                'points': 'Points',
+                'hourangle': 'Hour Angle',
+                'binary': 'Binary Degrees'
+            };
+            return unitNames[unit] || unit;
+        }
+
+        // Filter units in dropdown
+        function filterUnits(input, dropdownId) {
+            const filter = input.value.toLowerCase();
+            const options = document.querySelectorAll(`#${dropdownId} .option`);
+            
+            options.forEach(option => {
+                const text = option.textContent.toLowerCase();
+                if (text.includes(filter)) {
+                    option.style.display = 'flex';
+                } else {
+                    option.style.display = 'none';
+                }
+            });
+        }
+
+        // Swap units
+        function swapUnits() {
+            [fromUnit, toUnit] = [toUnit, fromUnit];
+            
+            // Update dropdown displays
+            updateDropdownDisplay(fromDropdownSelected, fromUnit);
+            updateDropdownDisplay(toDropdownSelected, toUnit);
+            
+            // Auto-convert if value exists
+            if (angleValue.value && !isNaN(parseFloat(angleValue.value))) {
+                convertAngle();
+            }
+        }
+
+        // Reset converter
+        function resetConverter() {
+            fromUnit = 'degrees';
+            toUnit = 'radians';
+            
+            // Reset dropdown displays
+            updateDropdownDisplay(fromDropdownSelected, 'degrees');
+            updateDropdownDisplay(toDropdownSelected, 'radians');
+            
+            // Clear input and result
+            angleValue.value = '';
+            showPlaceholder();
+        }
+
+        // Clear input
+        function clearInput() {
+            angleValue.value = '';
+            showPlaceholder();
+            angleValue.focus();
+        }
+
+        // Show placeholder message
+        function showPlaceholder() {
+            resultSection.innerHTML = `
+                <div class="result-placeholder animated-pulse">
+                    <i class="fas fa-shapes"></i>
+                    <p>Enter angle values to see conversion results!</p>
+                </div>
+            `;
+        }
+
+        // Main conversion function
+        function convertAngle() {
+            const value = parseFloat(angleValue.value);
+            
+            if (isNaN(value)) {
+                resultSection.innerHTML = `
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>Please enter a valid angle value</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Conversion factors to degrees (base unit)
+            const toDegrees = {
+                // Common units
+                'degrees': 1,
+                'radians': 180 / Math.PI,           // 1 rad = 180/π degrees
+                'gradians': 0.9,                    // 1 gon = 0.9 degrees
+                'turns': 360,                       // 1 turn = 360 degrees
+                
+                // Navigation & surveying
+                'minutes': 1/60,                    // 1 arcmin = 1/60 degree
+                'seconds': 1/3600,                  // 1 arcsec = 1/3600 degree
+                'mils': 0.05625,                    // NATO mil (6400 in circle)
+                
+                // Special units
+                'points': 11.25,                    // 1 point = 11.25 degrees (32 points in circle)
+                'hourangle': 15,                    // 1 hour = 15 degrees (24 hours in circle)
+                'binary': 360/256                   // Binary degree (256 in circle)
+            };
+            
+            const fromDegrees = {
+                // Common units
+                'degrees': 1,
+                'radians': Math.PI / 180,           // 1 degree = π/180 radians
+                'gradians': 1/0.9,                  // 1 degree = 1/0.9 gradians
+                'turns': 1/360,                     // 1 degree = 1/360 turns
+                
+                // Navigation & surveying
+                'minutes': 60,                      // 1 degree = 60 arcminutes
+                'seconds': 3600,                    // 1 degree = 3600 arcseconds
+                'mils': 1/0.05625,                  // 1 degree = ~17.7778 mils
+                
+                // Special units
+                'points': 1/11.25,                  // 1 degree = ~0.0889 points
+                'hourangle': 1/15,                  // 1 degree = 1/15 hour angle
+                'binary': 256/360                   // 1 degree = ~0.7111 binary degrees
+            };
+            
+            const valueInDegrees = value * toDegrees[fromUnit];
+            const result = valueInDegrees * fromDegrees[toUnit];
+            
+            // Format result based on magnitude
+            let formattedResult;
+            if (Math.abs(result) < 0.0001 || Math.abs(result) > 1000000) {
+                formattedResult = result.toExponential(6);
+            } else {
+                formattedResult = result.toFixed(6);
+                // Remove trailing zeros
+                formattedResult = parseFloat(formattedResult).toString();
+            }
+            
+            resultSection.innerHTML = `
+                <div class="success-result">
+                    <div class="result-animation">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="result-value">${value} ${getUnitDisplayName(fromUnit)} = ${formattedResult} ${getUnitDisplayName(toUnit)}</div>
+                    <div class="result-details">
+                        <p><strong>Conversion Details:</strong></p>
+                        <p>1 ${fromUnit} = ${toDegrees[fromUnit]} degrees</p>
+                        <p>1 ${toUnit} = ${(1/fromDegrees[toUnit]).toFixed(10)} degrees</p>
+                        <p><em>Base unit: degrees (°)</em></p>
+                    </div>
+                </div>
+            `;
+        }
+  </script>
+</body>
+</html>

@@ -1,0 +1,2062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversion Charts - MetricConverter</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+    <style>
+        
+        /* Hero Section */
+        .charts-hero {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 140px 20px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .floating-shape {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape-1 {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .shape-3 {
+            width: 80px;
+            height: 80px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .header-icon.animated-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .animate-pop-in {
+            animation: popIn 0.8s ease-out;
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Stats Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        /* Charts Section */
+        .charts-section {
+            padding: 4rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Chart Controls */
+        .chart-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-color);
+            opacity: 0.7;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 20px 12px 45px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            background: var(--card-bg);
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        /* Chart Filters */
+        .chart-filters {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            color: var(--text-color);
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Charts Grid */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .chart-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            position: relative;
+            animation: slideInUp 0.6s ease-out;
+        }
+
+        .chart-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .chart-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 20px 20px 0 0;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chart-card:nth-child(odd) {
+            animation-delay: 0.1s;
+        }
+
+        .chart-card:nth-child(even) {
+            animation-delay: 0.2s;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .chart-header h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.4rem;
+            color: var(--text-color);
+        }
+
+        .chart-header i {
+            color: var(--primary-color);
+            font-size: 1.6rem;
+        }
+
+        .chart-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .export-btn, .fullscreen-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .export-btn:hover, .fullscreen-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+        /* Comparison Tables */
+        .tables-section {
+            padding: 2rem 0;
+        }
+
+        .comparison-table {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .table-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .table-header i {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+
+        .table-header h3 {
+            font-size: 1.4rem;
+            color: var(--text-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background: rgba(0, 0, 0, 0.1);
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        tr:hover {
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: var(--card-bg);
+                flex-direction: column;
+                padding: 2rem;
+                transition: left 0.3s ease;
+                gap: 1rem;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-link {
+                color: var(--text-color);
+                justify-content: center;
+                font-size: 1.1rem;
+            }
+            
+            .dropdown-content {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                background: transparent;
+            }
+            
+            .dropdown-content a {
+                color: var(--text-color);
+                border-bottom: 1px solid var(--border-color);
+            }
+            
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chart-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-box {
+                max-width: 100%;
+            }
+            
+            .chart-filters {
+                justify-content: center;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .chart-card {
+                padding: 1.5rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            table {
+                font-size: 0.9rem;
+            }
+            
+            th, td {
+                padding: 0.75rem 0.5rem;
+            }
+            
+            .filter-btn {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+        /* Mobile Devices */
+@media (max-width: 768px) {
+    .converter-hero {
+        padding: 120px 15px 60px !important;
+    }
+    
+    .hero-title {
+        font-size: 2.2rem !important;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem !important;
+    }
+    
+    .converter-card {
+        padding: 1.5rem !important;
+        margin: 1rem 0 !important;
+    }
+    
+    .units-selection {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+    
+    .animated-arrow {
+        transform: rotate(90deg) !important;
+        padding: 1rem 0 !important;
+    }
+    
+    .card-header {
+        flex-direction: column !important;
+        gap: 1rem !important;
+        align-items: flex-start !important;
+    }
+    
+    .converter-actions {
+        align-self: flex-end !important;
+    }
+    
+    .input-with-actions input {
+        padding: 15px !important;
+        font-size: 1.1rem !important;
+    }
+    
+    .convert-btn-main {
+        padding: 15px 25px !important;
+        font-size: 1.1rem !important;
+        width: 100% !important;
+    }
+    
+    .dropdown-options {
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: 90vw !important;
+        max-height: 70vh !important;
+        z-index: 10000 !important;
+    }
+    
+    /* For pages with examples grid */
+    .angle-examples,
+    .examples-grid,
+    .unit-examples {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+}
+
+/* Small Mobile Devices */
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 1.8rem !important;
+    }
+    
+    .converter-card {
+        padding: 1rem !important;
+    }
+    
+    .card-header h2 {
+        font-size: 1.3rem !important;
+    }
+    
+    .input-with-actions input {
+        padding: 12px !important;
+        font-size: 1rem !important;
+    }
+    
+    .convert-btn-main {
+        padding: 12px 20px !important;
+        font-size: 1rem !important;
+    }
+    
+    .unit-counter {
+        padding: 0.8rem 1rem !important;
+    }
+    
+    .counter-number {
+        font-size: 1.5rem !important;
+    }
+    
+    .result-value {
+        font-size: 1.2rem !important;
+    }
+}
+@media (max-width: 768px) {
+
+
+/* Navbar */
+.navbar .nav-menu {
+display: none;
+}
+.mobile-menu-btn {
+display: block;
+}
+
+
+/* Converter Card */
+.converter-card {
+padding: 1.5rem;
+}
+
+
+.units-selection {
+grid-template-columns: 1fr !important;
+gap: 1rem;
+}
+
+
+.animated-arrow {
+transform: rotate(90deg);
+margin: 1rem 0;
+}
+
+
+.dropdown-selected {
+min-height: 55px;
+padding: 14px 18px;
+}
+
+
+.input-with-actions input {
+font-size: 1.1rem;
+padding: 16px;
+}
+
+
+/* Result Section */
+.result-value {
+font-size: 1.2rem;
+}
+
+
+.result-details {
+font-size: 0.9rem;
+}
+
+
+/* Footer */
+.footer-content {
+grid-template-columns: 1fr;
+text-align: center;
+}
+}
+
+
+/* ===== SMALL MOBILES (max-width: 480px) ===== */
+@media (max-width: 480px) {
+
+
+.converter-hero {
+padding: 100px 20px 60px;
+}
+
+
+h1 {
+font-size: 1.8rem !important;
+}
+
+
+.converter-card {
+padding: 1rem;
+}
+
+
+.convert-btn-main {
+padding: 15px 25px;
+font-size: 1rem;
+}
+
+
+.dropdown-selected {
+font-size: 0.9rem;
+}
+
+
+.result-animation {
+font-size: 2.2rem;
+}
+
+
+}
+    </style>
+</head>
+<body>
+   
+
+     <!-- Top Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html"><i class="fas fa-ruler-combined"></i></a>
+                <span>MetricConverter</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-calculator"></i>
+                        <span>Converters</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                   <div class="dropdown-content">
+                     <a href="length.html"><i class="fas fa-ruler-horizontal"></i> Length</a>
+                     <a href="area.html"><i class="fas fa-border-all"></i> Area</a>
+                     <a href="volume.html"><i class="fas fa-flask"></i> Volume</a>
+                     <a href="mass.html"><i class="fas fa-weight-hanging"></i> Mass</a>
+                     <a href="temperature.html"><i class="fas fa-thermometer-half"></i> Temperature</a>
+                     <a href="time.html"><i class="fas fa-clock"></i> Time</a>
+                     <a href="angle.html"><i class="fas fa-shapes"></i> Angle</a>
+                     <a href="energy-and-power.html"><i class="fas fa-bolt"></i> Energy and Power</a>
+                     <a href="currency.html"><i class="fas fa-money-bill-wave"></i> Currency</a>
+                   </div>
+            </div>
+
+                <a href="charts.html" class="nav-link active">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Charts</span>
+                </a>
+                <a href="history.html" class="nav-link">
+                    <i class="fas fa-history"></i>
+                    <span>History</span>
+                </a>
+                <a href="articles.html" class="nav-link">
+                    <i class="fas fa-newspaper"></i>
+                    <span>Articles</span>
+                </a>
+                <a href="faq.html" class="nav-link">
+                    <i class="fas fa-question-circle"></i>
+                    <span>FAQ</span>
+                </a>
+            </div>
+            <div class="nav-actions">
+                <button id="darkModeToggle" class="dark-mode-btn">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu  -->
+<div class="mobile-menu">
+    <div class="mobile-nav-links">
+        <a href="index.html" class="mobile-nav-link">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        
+        <!-- Mobile Dropdown for Converters -->
+        <div class="mobile-dropdown">
+            <button class="mobile-dropdown-toggle">
+                <div class="toggle-content">
+                    <i class="fas fa-calculator"></i>
+                    <span>Converters</span>
+                </div>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="mobile-dropdown-content">
+                <a href="length.html" class="mobile-nav-link">
+                    <i class="fas fa-ruler-horizontal"></i>
+                    <span>Length</span>
+                </a>
+                <a href="area.html" class="mobile-nav-link">
+                    <i class="fas fa-border-all"></i>
+                    <span>Area</span>
+                </a>
+                <a href="volume.html" class="mobile-nav-link">
+                    <i class="fas fa-flask"></i>
+                    <span>Volume</span>
+                </a>
+                <a href="mass.html" class="mobile-nav-link">
+                    <i class="fas fa-weight-hanging"></i>
+                    <span>Mass</span>
+                </a>
+                <a href="temperature.html" class="mobile-nav-link">
+                    <i class="fas fa-thermometer-half"></i>
+                    <span>Temperature</span>
+                </a>
+                <a href="time.html" class="mobile-nav-link">
+                    <i class="fas fa-clock"></i>
+                    <span>Time</span>
+                </a>
+                <a href="angle.html" class="mobile-nav-link">
+                    <i class="fas fa-shapes"></i>
+                    <span>Angle</span>
+                </a>
+                <a href="energy-and-power.html" class="mobile-nav-link">
+                    <i class="fas fa-bolt"></i>
+                    <span>Energy and Power</span>
+                </a>
+                <a href="currency.html" class="mobile-nav-link">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>Currency</span>
+                </a>
+            </div>
+        </div>
+
+        <a href="charts.html" class="mobile-nav-link active">
+            <i class="fas fa-chart-bar"></i>
+            <span>Charts</span>
+        </a>
+        <a href="history.html" class="mobile-nav-link">
+            <i class="fas fa-history"></i>
+            <span>History</span>
+        </a>
+        <a href="articles.html" class="mobile-nav-link">
+            <i class="fas fa-newspaper"></i>
+            <span>Articles</span>
+        </a>
+        <a href="faq.html" class="mobile-nav-link">
+            <i class="fas fa-question-circle"></i>
+            <span>FAQ</span>
+        </a>
+    </div>
+</div>
+
+    <!-- Hero Section -->
+    <section class="charts-hero">
+        <div class="hero-bg-animation">
+            <div class="floating-shape shape-1"></div>
+            <div class="floating-shape shape-2"></div>
+            <div class="floating-shape shape-3"></div>
+        </div>
+        <div class="container">
+            <div class="converter-header">
+                <div class="header-icon animated-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h1 class="animate-pop-in">Conversion Charts & Analytics</h1>
+                <p class="animate-pop-in">Visualize relationships between different units and track conversion trends across all converter types</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="container">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-ruler-combined"></i>
+                </div>
+                <div class="stat-number">11</div>
+                <div class="stat-label">Converter Types</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <div class="stat-number">300+</div>
+                <div class="stat-label">Units Supported</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-number">15K+</div>
+                <div class="stat-label">Monthly Conversions</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
+                <div class="stat-number">20+</div>
+                <div class="stat-label">Analytics Charts</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Charts Section -->
+    <section class="charts-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Interactive Conversion Charts</h2>
+                <p>Explore visual representations of unit relationships and conversion patterns across all measurement types</p>
+            </div>
+
+            <!-- Chart Controls -->
+            <div class="chart-controls">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="chartSearch" placeholder="Search charts...">
+                </div>
+                
+                <!-- Chart Filters -->
+                <div class="chart-filters">
+                    <button class="filter-btn active" data-category="all">
+                        <i class="fas fa-layer-group"></i> All Charts
+                    </button>
+                    <button class="filter-btn" data-category="length">
+                        <i class="fas fa-ruler-horizontal"></i> Length
+                    </button>
+                    <button class="filter-btn" data-category="area">
+                        <i class="fas fa-border-all"></i> Area
+                    </button>
+                    <button class="filter-btn" data-category="volume">
+                        <i class="fas fa-flask"></i> Volume
+                    </button>
+                    <button class="filter-btn" data-category="mass">
+                        <i class="fas fa-weight-hanging"></i> Mass
+                    </button>
+                    <button class="filter-btn" data-category="temperature">
+                        <i class="fas fa-thermometer-half"></i> Temperature
+                    </button>
+                    <button class="filter-btn" data-category="currency">
+                        <i class="fas fa-money-bill-wave"></i> Currency
+                    </button>
+                    <button class="filter-btn" data-category="time">
+                        <i class="fas fa-clock"></i> Time
+                    </button>
+                    <button class="filter-btn" data-category="speed">
+                        <i class="fas fa-tachometer-alt"></i> Speed
+                    </button>
+                </div>
+            </div>
+
+            <!-- Charts Grid -->
+            <div class="charts-grid">
+                <!-- Length Conversion Chart -->
+                <div class="chart-card" data-category="length">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-ruler-horizontal"></i> Length Conversion Trends</h3>
+                        <div class="chart-actions">
+                            <button class="export-btn" data-chart="lengthChart">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="lengthChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Temperature Comparison Chart -->
+                <div class="chart-card" data-category="temperature">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-thermometer-half"></i> Temperature Scale Comparison</h3>
+                        <div class="chart-actions">
+                            <button class="export-btn" data-chart="temperatureChart">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="temperatureChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Currency Exchange Chart -->
+                <div class="chart-card" data-category="currency">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-money-bill-wave"></i> Currency Exchange Rates</h3>
+                        <div class="chart-actions">
+                            <button class="export-btn" data-chart="currencyChart">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="currencyChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Volume Comparison Chart -->
+                <div class="chart-card" data-category="volume">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-flask"></i> Volume Unit Relationships</h3>
+                        <div class="chart-actions">
+                            <button class="export-btn" data-chart="volumeComparisonChart">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="volumeComparisonChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Time Conversion Chart -->
+                <div class="chart-card" data-category="time">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-clock"></i> Time Unit Conversion</h3>
+                        <div class="chart-actions">
+                            <button class="export-btn" data-chart="timeChart">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="timeChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Speed Conversion Chart -->
+                <div class="chart-card" data-category="speed">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-tachometer-alt"></i> Speed Unit Comparison</h3>
+                        <div class="chart-actions">
+                            <button class="export-btn" data-chart="speedChart">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="speedChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Angle Conversion Chart -->
+                <div class="chart-card" data-category="angle">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-shapes"></i> Angle Unit Relationships</h3>
+                        <div class="chart-actions">
+                            <button class="export-btn" data-chart="angleChart">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="angleChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Pressure Conversion Chart -->
+                <div class="chart-card" data-category="pressure">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-compress-arrows-alt"></i> Pressure Unit Scaling</h3>
+                        <div class="chart-actions">
+                            <button class="export-btn" data-chart="pressureChart">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="pressureChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Energy and Power Chart -->
+                <div class="chart-card" data-category="energy">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-bolt"></i> Energy Unit Conversion</h3>
+                        <div class="chart-actions">
+                            <button class="export-btn" data-chart="energyChart">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="energyChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Mass Comparison Chart -->
+                <div class="chart-card" data-category="mass">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-balance-scale"></i> Mass Conversion Comparison</h3>
+                        <div class="chart-actions">
+                            <button class="export-btn" data-chart="massComparisonChart">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="massComparisonChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Area Conversion Chart -->
+                <div class="chart-card" data-category="area">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-vector-square"></i> Area Conversion Comparison</h3>
+                        <div class="chart-actions">
+                            <button class="export-btn" data-chart="areaComparisonChart">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="areaComparisonChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Volume Pie Chart -->
+                <div class="chart-card" data-category="volume">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-cube"></i> Volume Unit Proportions</h3>
+                        <div class="chart-actions">
+                            <button class="export-btn" data-chart="volumePieChart">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="volumePieChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Tables Section -->
+    <section class="tables-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Quick Reference Tables</h2>
+                <p>Essential conversion factors and relationships at a glance</p>
+            </div>
+
+            <!-- Temperature Conversion Table -->
+            <div class="comparison-table">
+                <div class="table-header">
+                    <i class="fas fa-thermometer-half"></i>
+                    <h3>Temperature Conversion Reference</h3>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Celsius (°C)</th>
+                            <th>Fahrenheit (°F)</th>
+                            <th>Kelvin (K)</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>-273.15</td>
+                            <td>-459.67</td>
+                            <td>0</td>
+                            <td>Absolute Zero</td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>32</td>
+                            <td>273.15</td>
+                            <td>Water Freezes</td>
+                        </tr>
+                        <tr>
+                            <td>20</td>
+                            <td>68</td>
+                            <td>293.15</td>
+                            <td>Room Temperature</td>
+                        </tr>
+                        <tr>
+                            <td>37</td>
+                            <td>98.6</td>
+                            <td>310.15</td>
+                            <td>Human Body</td>
+                        </tr>
+                        <tr>
+                            <td>100</td>
+                            <td>212</td>
+                            <td>373.15</td>
+                            <td>Water Boils</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Length Conversion Table -->
+            <div class="comparison-table">
+                <div class="table-header">
+                    <i class="fas fa-ruler-horizontal"></i>
+                    <h3>Length Conversion Factors</h3>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Unit</th>
+                            <th>To Meters</th>
+                            <th>From Meters</th>
+                            <th>Common Usage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Millimeter (mm)</td>
+                            <td>0.001</td>
+                            <td>1000</td>
+                            <td>Small measurements</td>
+                        </tr>
+                        <tr>
+                            <td>Centimeter (cm)</td>
+                            <td>0.01</td>
+                            <td>100</td>
+                            <td>Everyday objects</td>
+                        </tr>
+                        <tr>
+                            <td>Meter (m)</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>Base unit</td>
+                        </tr>
+                        <tr>
+                            <td>Kilometer (km)</td>
+                            <td>1000</td>
+                            <td>0.001</td>
+                            <td>Long distances</td>
+                        </tr>
+                        <tr>
+                            <td>Inch (in)</td>
+                            <td>0.0254</td>
+                            <td>39.3701</td>
+                            <td>US customary</td>
+                        </tr>
+                        <tr>
+                            <td>Foot (ft)</td>
+                            <td>0.3048</td>
+                            <td>3.28084</td>
+                            <td>Height, short distances</td>
+                        </tr>
+                        <tr>
+                            <td>Mile (mi)</td>
+                            <td>1609.34</td>
+                            <td>0.000621371</td>
+                            <td>Long distances</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Time Conversion Table -->
+            <div class="comparison-table">
+                <div class="table-header">
+                    <i class="fas fa-clock"></i>
+                    <h3>Time Conversion Reference</h3>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Unit</th>
+                            <th>To Seconds</th>
+                            <th>From Seconds</th>
+                            <th>Common Usage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Second (s)</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>Base unit</td>
+                        </tr>
+                        <tr>
+                            <td>Minute (min)</td>
+                            <td>60</td>
+                            <td>0.0167</td>
+                            <td>Short durations</td>
+                        </tr>
+                        <tr>
+                            <td>Hour (hr)</td>
+                            <td>3600</td>
+                            <td>0.000278</td>
+                            <td>Work hours, events</td>
+                        </tr>
+                        <tr>
+                            <td>Day</td>
+                            <td>86400</td>
+                            <td>0.0000116</td>
+                            <td>Daily cycles</td>
+                        </tr>
+                        <tr>
+                            <td>Week</td>
+                            <td>604800</td>
+                            <td>0.00000165</td>
+                            <td>Work weeks</td>
+                        </tr>
+                        <tr>
+                            <td>Month (avg)</td>
+                            <td>2.628e+6</td>
+                            <td>3.805e-7</td>
+                            <td>Billing cycles</td>
+                        </tr>
+                        <tr>
+                            <td>Year</td>
+                            <td>3.154e+7</td>
+                            <td>3.171e-8</td>
+                            <td>Annual events</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Speed Conversion Table -->
+            <div class="comparison-table">
+                <div class="table-header">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <h3>Speed Conversion Reference</h3>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Unit</th>
+                            <th>To m/s</th>
+                            <th>From m/s</th>
+                            <th>Common Usage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>m/s</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>Scientific</td>
+                        </tr>
+                        <tr>
+                            <td>km/h</td>
+                            <td>0.2778</td>
+                            <td>3.6</td>
+                            <td>Road speeds</td>
+                        </tr>
+                        <tr>
+                            <td>mph</td>
+                            <td>0.447</td>
+                            <td>2.237</td>
+                            <td>US road speeds</td>
+                        </tr>
+                        <tr>
+                            <td>knots</td>
+                            <td>0.514</td>
+                            <td>1.944</td>
+                            <td>Marine, aviation</td>
+                        </tr>
+                        <tr>
+                            <td>ft/s</td>
+                            <td>0.305</td>
+                            <td>3.281</td>
+                            <td>Engineering</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Currency Exchange Table -->
+            <div class="comparison-table">
+                <div class="table-header">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h3>Major Currency Exchange Rates (vs USD)</h3>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Currency</th>
+                            <th>Symbol</th>
+                            <th>1 USD Equals</th>
+                            <th>Daily Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Euro</td>
+                            <td>€</td>
+                            <td>0.92</td>
+                            <td style="color: #06d6a0;">+0.2%</td>
+                        </tr>
+                        <tr>
+                            <td>British Pound</td>
+                            <td>£</td>
+                            <td>0.79</td>
+                            <td style="color: #06d6a0;">+0.1%</td>
+                        </tr>
+                        <tr>
+                            <td>Japanese Yen</td>
+                            <td>¥</td>
+                            <td>149.32</td>
+                            <td style="color: #ff4444;">-0.3%</td>
+                        </tr>
+                        <tr>
+                            <td>Canadian Dollar</td>
+                            <td>CA$</td>
+                            <td>1.36</td>
+                            <td style="color: #06d6a0;">+0.4%</td>
+                        </tr>
+                        <tr>
+                            <td>Swiss Franc</td>
+                            <td>CHF</td>
+                            <td>0.88</td>
+                            <td style="color: #ff4444;">-0.1%</td>
+                        </tr>
+                        <tr>
+                            <td>Australian Dollar</td>
+                            <td>A$</td>
+                            <td>1.52</td>
+                            <td style="color: #06d6a0;">+0.5%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+     <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-ruler-combined"></i> MetricConverter</h4>
+                    <p>Your trusted companion for all unit conversion needs. Fast, accurate, and easy to use.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a>
+                    <a href="charts.html">Charts</a>
+                    <a href="history.html">History</a>
+                    <a href="articles.html">Article</a>
+                    <a href="faq.html">Help & FAQ</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Converters</h4>
+                    <a href="length.html">Length</a>
+                    <a href="area.html">Area</a>
+                    <a href="volume.html">Volume</a>
+                    <a href="mass.html">Mass</a>
+                    <a href="temperature.html">Temperature</a>
+                    <a href="time.html">Time</a>
+                    <a href="angle.html">Angle</a>
+                    <a href="energy-and-power.html">Energy&Power</a>
+                    <a href="currency.html">Currency</a>
+                </div>
+                <div class="footer-bottom">
+                <p>&copy; 2025 MetricConverter. All rights reserved. | eProject by Abdur Rehman, Sidrat Ul Muntaha and Ameema</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Chart initialization and configuration
+        document.addEventListener('DOMContentLoaded', function() {
+            showLoadingAnimation();
+            initializeCharts();
+            setupChartFilters();
+            setupSearch();
+            setupExportButtons();
+            setupMobileMenu();
+            animateStats();
+            setupDarkMode();
+        });
+
+        // Show loading animation
+        function showLoadingAnimation() {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            
+            setTimeout(() => {
+                loadingOverlay.classList.add('hidden');
+                setTimeout(() => {
+                    loadingOverlay.style.display = 'none';
+                }, 500);
+            }, 2000);
+        }
+
+        // Initialize all charts
+        function initializeCharts() {
+            createLengthChart();
+            createTemperatureChart();
+            createCurrencyChart();
+            createVolumeComparisonChart();
+            createTimeChart();
+            createSpeedChart();
+            createAngleChart();
+            createPressureChart();
+            createEnergyChart();
+            createMassComparisonChart();
+            createAreaComparisonChart();
+            createVolumePieChart();
+        }
+
+        // Setup chart search functionality
+        function setupSearch() {
+            const searchInput = document.getElementById('chartSearch');
+            const chartCards = document.querySelectorAll('.chart-card');
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                
+                chartCards.forEach(card => {
+                    const title = card.querySelector('h3').textContent.toLowerCase();
+                    if (title.includes(searchTerm)) {
+                        card.style.display = 'block';
+                        card.style.animation = 'slideInUp 0.5s ease-out';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Setup chart export buttons
+        function setupExportButtons() {
+            const exportButtons = document.querySelectorAll('.export-btn');
+            
+            exportButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const chartId = this.getAttribute('data-chart');
+                    const canvas = document.getElementById(chartId);
+                    const link = document.createElement('a');
+                    link.download = `${chartId}.png`;
+                    link.href = canvas.toDataURL();
+                    link.click();
+                    
+                    // Show success feedback
+                    const originalHTML = this.innerHTML;
+                    this.innerHTML = '<i class="fas fa-check"></i>';
+                    setTimeout(() => {
+                        this.innerHTML = originalHTML;
+                    }, 2000);
+                });
+            });
+        }
+
+        // Setup mobile menu
+        function setupMobileMenu() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                this.innerHTML = navMenu.classList.contains('active') ? 
+                    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            });
+        }
+
+        // Animated counter for stats
+        function animateStats() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            
+            statNumbers.forEach(stat => {
+                const target = parseInt(stat.textContent);
+                let current = 0;
+                const increment = target / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    stat.textContent = Math.floor(current) + (stat.textContent.includes('+') ? '+' : '');
+                }, 30);
+            });
+        }
+
+        // Setup dark mode toggle
+        function setupDarkMode() {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const icon = darkModeToggle.querySelector('i');
+            
+            // Check for saved theme preference or default to light
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            if (currentTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                icon.className = 'fas fa-sun';
+            }
+            
+            darkModeToggle.addEventListener('click', function() {
+                let theme = 'light';
+                if (document.documentElement.getAttribute('data-theme') === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    icon.className = 'fas fa-moon';
+                    theme = 'light';
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    icon.className = 'fas fa-sun';
+                    theme = 'dark';
+                }
+                localStorage.setItem('theme', theme);
+            });
+        }
+
+        // Chart filtering functionality
+        function setupChartFilters() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const chartCards = document.querySelectorAll('.chart-card');
+            const searchInput = document.getElementById('chartSearch');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const category = this.getAttribute('data-category');
+                    const searchTerm = searchInput.value.toLowerCase();
+
+                    chartCards.forEach(card => {
+                        const cardCategory = card.getAttribute('data-category');
+                        const title = card.querySelector('h3').textContent.toLowerCase();
+                        
+                        const categoryMatch = category === 'all' || cardCategory === category;
+                        const searchMatch = title.includes(searchTerm);
+                        
+                        if (categoryMatch && searchMatch) {
+                            card.style.display = 'block';
+                            card.style.animation = 'slideInUp 0.5s ease-out';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        }
+
+        // Length Conversion Chart
+        function createLengthChart() {
+            const ctx = document.getElementById('lengthChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['1 cm', '10 cm', '1 m', '10 m', '100 m', '1 km'],
+                    datasets: [
+                        {
+                            label: 'Inches',
+                            data: [0.39, 3.94, 39.37, 393.7, 3937, 39370],
+                            borderColor: '#2563eb',
+                            backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'Feet',
+                            data: [0.033, 0.33, 3.28, 32.81, 328.1, 3281],
+                            borderColor: '#06d6a0',
+                            backgroundColor: 'rgba(6, 214, 160, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Metric to Imperial Length Conversion',
+                            font: { size: 16 }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            type: 'logarithmic',
+                            title: {
+                                display: true,
+                                text: 'Imperial Units'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Metric Units'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Temperature Comparison Chart
+        function createTemperatureChart() {
+            const ctx = document.getElementById('temperatureChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['-40', '-20', '0', '20', '40', '60', '80', '100'],
+                    datasets: [
+                        {
+                            label: 'Celsius (°C)',
+                            data: [-40, -20, 0, 20, 40, 60, 80, 100],
+                            borderColor: '#2563eb',
+                            backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                            tension: 0.3,
+                            fill: true
+                        },
+                        {
+                            label: 'Fahrenheit (°F)',
+                            data: [-40, -4, 32, 68, 104, 140, 176, 212],
+                            borderColor: '#ef4444',
+                            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                            tension: 0.3,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Temperature Scale Comparison',
+                            font: { size: 16 }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Currency Exchange Chart
+        function createCurrencyChart() {
+            const ctx = document.getElementById('currencyChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['EUR', 'GBP', 'JPY', 'CAD', 'AUD', 'CHF'],
+                    datasets: [{
+                        label: 'Exchange Rate (vs USD)',
+                        data: [0.92, 0.79, 149.32, 1.36, 1.52, 0.88],
+                        backgroundColor: [
+                            'rgba(37, 99, 235, 0.8)',
+                            'rgba(6, 214, 160, 0.8)',
+                            'rgba(139, 92, 246, 0.8)',
+                            'rgba(239, 68, 68, 0.8)',
+                            'rgba(245, 158, 11, 0.8)',
+                            'rgba(16, 185, 129, 0.8)'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Major Currency Exchange Rates',
+                            font: { size: 16 }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Volume Comparison Chart
+        function createVolumeComparisonChart() {
+            const ctx = document.getElementById('volumeComparisonChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['1L', '5L', '10L', '20L', '50L'],
+                    datasets: [
+                        {
+                            label: 'Gallons',
+                            data: [0.26, 1.32, 2.64, 5.28, 13.21],
+                            backgroundColor: 'rgba(37, 99, 235, 0.8)'
+                        },
+                        {
+                            label: 'Quarts',
+                            data: [1.06, 5.28, 10.57, 21.13, 52.83],
+                            backgroundColor: 'rgba(6, 214, 160, 0.8)'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Liters to Imperial Volume Conversion',
+                            font: { size: 16 }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Time Conversion Chart
+        function createTimeChart() {
+            const ctx = document.getElementById('timeChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Seconds', 'Minutes', 'Hours', 'Days', 'Weeks'],
+                    datasets: [{
+                        label: 'Time Unit Progression',
+                        data: [1, 60, 3600, 86400, 604800],
+                        borderColor: '#8b5cf6',
+                        backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Time Unit Conversion Scale',
+                            font: { size: 16 }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            type: 'logarithmic',
+                            title: {
+                                display: true,
+                                text: 'Seconds Equivalent'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Speed Conversion Chart
+        function createSpeedChart() {
+            const ctx = document.getElementById('speedChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['m/s', 'km/h', 'mph', 'knots', 'ft/s'],
+                    datasets: [{
+                        label: 'Speed Conversion Factors',
+                        data: [1, 3.6, 2.237, 1.944, 3.281],
+                        backgroundColor: 'rgba(245, 158, 11, 0.2)',
+                        borderColor: '#f59e0b',
+                        pointBackgroundColor: '#f59e0b'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Speed Unit Conversion Factors',
+                            font: { size: 16 }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Angle Conversion Chart
+        function createAngleChart() {
+            const ctx = document.getElementById('angleChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Degrees', 'Radians', 'Gradians'],
+                    datasets: [{
+                        data: [180, 3.14159, 200],
+                        backgroundColor: [
+                            '#2563eb',
+                            '#06d6a0',
+                            '#8b5cf6'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Angle Unit Equivalents (180° = π rad = 200 grad)',
+                            font: { size: 16 }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Pressure Conversion Chart
+        function createPressureChart() {
+            const ctx = document.getElementById('pressureChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Pascal', 'Bar', 'PSI', 'Atmosphere'],
+                    datasets: [{
+                        label: 'Conversion from 1 Bar',
+                        data: [100000, 1, 14.5, 0.987],
+                        backgroundColor: 'rgba(239, 68, 68, 0.8)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Pressure Unit Conversion (from 1 Bar)',
+                            font: { size: 16 }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Energy Conversion Chart
+        function createEnergyChart() {
+            const ctx = document.getElementById('energyChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Joules', 'Calories', 'kWh', 'BTU'],
+                    datasets: [{
+                        label: 'Energy Conversion from 1 kWh',
+                        data: [3600000, 860, 1, 3412],
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Energy Unit Conversion (from 1 kWh)',
+                            font: { size: 16 }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            type: 'logarithmic'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Mass Comparison Chart
+        function createMassComparisonChart() {
+            const ctx = document.getElementById('massComparisonChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['1 kg', '10 kg', '50 kg', '100 kg'],
+                    datasets: [
+                        {
+                            label: 'Pounds',
+                            data: [2.205, 22.05, 110.23, 220.46],
+                            backgroundColor: 'rgba(37, 99, 235, 0.8)'
+                        },
+                        {
+                            label: 'Ounces',
+                            data: [35.274, 352.74, 1763.7, 3527.4],
+                            backgroundColor: 'rgba(6, 214, 160, 0.8)'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Mass Conversion: Kilograms to Imperial',
+                            font: { size: 16 }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Area Comparison Chart
+        function createAreaComparisonChart() {
+            const ctx = document.getElementById('areaComparisonChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['1 m²', '10 m²', '100 m²', '1000 m²'],
+                    datasets: [
+                        {
+                            label: 'Square Feet',
+                            data: [10.76, 107.6, 1076, 10760],
+                            backgroundColor: 'rgba(37, 99, 235, 0.8)'
+                        },
+                        {
+                            label: 'Square Yards',
+                            data: [1.196, 11.96, 119.6, 1196],
+                            backgroundColor: 'rgba(6, 214, 160, 0.8)'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Area Conversion: Square Meters to Imperial',
+                            font: { size: 16 }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Volume Pie Chart
+        function createVolumePieChart() {
+            const ctx = document.getElementById('volumePieChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Liters', 'Gallons', 'Milliliters', 'Cubic Meters'],
+                    datasets: [{
+                        data: [40, 25, 20, 15],
+                        backgroundColor: [
+                            '#2563eb',
+                            '#06d6a0',
+                            '#8b5cf6',
+                            '#f59e0b'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Volume Unit Usage Distribution',
+                            font: { size: 16 }
+                        }
+                    }
+                }
+            });
+        }
+        // Mobile Menu for All Pages
+function initMobileMenu() {
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    
+    if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            mobileMenu.classList.toggle('active');
+            const icon = this.querySelector('i');
+            icon.className = mobileMenu.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
+        });
+
+        // Mobile dropdowns
+        const dropdownToggles = document.querySelectorAll('.mobile-dropdown-toggle');
+        dropdownToggles.forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.parentElement.classList.toggle('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.nav-container') && !e.target.closest('.mobile-menu')) {
+                mobileMenu.classList.remove('active');
+                mobileMenuBtn.querySelector('i').className = 'fas fa-bars';
+                document.querySelectorAll('.mobile-dropdown').forEach(dropdown => {
+                    dropdown.classList.remove('active');
+                });
+            }
+        });
+    }
+}
+
+// Initialize on all pages
+document.addEventListener('DOMContentLoaded', function() {
+    initMobileMenu();
+    
+    // Mark current page as active in mobile menu
+    const currentPage = window.location.pathname.split('/').pop();
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+        if (link.getAttribute('href') === currentPage) {
+            link.classList.add('active');
+        }
+    });
+});
+    </script>
+</body>
+</html>

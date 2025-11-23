@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Measurement Conversion Questions - MetricConverter</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❓</text></svg>">
+    <style>
+        /* FAQ Specific Styles */
+        .faq-hero {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 140px 20px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .floating-shape {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape-1 {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .shape-3 {
+            width: 80px;
+            height: 80px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .header-icon.animated-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .animate-pop-in {
+            animation: popIn 0.8s ease-out;
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .faq-content {
+            padding: 80px 20px;
+            background: var(--bg-color);
+        }
+
+        .search-section {
+            max-width: 800px;
+            margin: 0 auto 4rem auto;
+        }
+
+        .search-box {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 20px 60px 20px 30px;
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            font-size: 1.1rem;
+            background: var(--card-bg);
+            color: var(--text-color);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .search-box i {
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        .faq-categories {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .category-btn {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: var(--text-color);
+            box-shadow: var(--shadow);
+        }
+
+        .category-btn.active,
+        .category-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .faq-section {
+            margin-bottom: 4rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .section-header i {
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        .section-header h2 {
+            color: var(--text-color);
+            font-size: 2rem;
+        }
+
+        .faq-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 0;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        .faq-question {
+            padding: 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .faq-question i {
+            color: var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-answer {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            color: var(--text-color);
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+
+        .faq-answer.active {
+            padding: 0 25px 25px 25px;
+            max-height: 1000px;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .conversion-tip {
+            background: rgba(6, 214, 160, 0.1);
+            border-left: 4px solid var(--accent-color);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+
+        .quick-conversion {
+            background: var(--bg-color);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+            border: 1px solid var(--border-color);
+        }
+
+        @media (max-width: 768px) {
+            .faq-categories {
+                gap: 10px;
+            }
+            
+            .category-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
+            
+            .faq-question {
+                padding: 20px;
+                font-size: 1rem;
+            }
+        }
+              /* Footer */
+        .footer {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-section p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .footer-bottom p {
+            opacity: 0.8;
+            font-size: 1rem;
+        }
+        @media (max-width: 768px) {
+
+
+/* Navbar */
+.navbar .nav-menu {
+display: none;
+}
+.mobile-menu-btn {
+display: block;
+}
+
+
+/* Converter Card */
+.converter-card {
+padding: 1.5rem;
+}
+
+
+.units-selection {
+grid-template-columns: 1fr !important;
+gap: 1rem;
+}
+
+
+.animated-arrow {
+transform: rotate(90deg);
+margin: 1rem 0;
+}
+
+
+.dropdown-selected {
+min-height: 55px;
+padding: 14px 18px;
+}
+
+
+.input-with-actions input {
+font-size: 1.1rem;
+padding: 16px;
+}
+
+
+/* Result Section */
+.result-value {
+font-size: 1.2rem;
+}
+
+
+.result-details {
+font-size: 0.9rem;
+}
+
+
+/* Footer */
+.footer-content {
+grid-template-columns: 1fr;
+text-align: center;
+}
+}
+
+
+/* ===== SMALL MOBILES (max-width: 480px) ===== */
+@media (max-width: 480px) {
+
+
+.converter-hero {
+padding: 100px 20px 60px;
+}
+
+
+h1 {
+font-size: 1.8rem !important;
+}
+
+
+.converter-card {
+padding: 1rem;
+}
+
+
+.convert-btn-main {
+padding: 15px 25px;
+font-size: 1rem;
+}
+
+
+.dropdown-selected {
+font-size: 0.9rem;
+}
+
+
+.result-animation {
+font-size: 2.2rem;
+}
+
+
+}
+ </style>
+</head>
+<body>
+     <!-- Top Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html"><i class="fas fa-ruler-combined"></i></a>
+                <span>MetricConverter</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-calculator"></i>
+                        <span>Converters</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                   <div class="dropdown-content">
+                     <a href="length.html"><i class="fas fa-ruler-horizontal"></i> Length</a>
+                     <a href="area.html"><i class="fas fa-border-all"></i> Area</a>
+                     <a href="volume.html"><i class="fas fa-flask"></i> Volume</a>
+                     <a href="mass.html"><i class="fas fa-weight-hanging"></i> Mass</a>
+                     <a href="temperature.html"><i class="fas fa-thermometer-half"></i> Temperature</a>
+                     <a href="time.html"><i class="fas fa-clock"></i> Time</a>
+                     <a href="angle.html"><i class="fas fa-shapes"></i> Angle</a>
+                     <a href="energy-and-power.html"><i class="fas fa-bolt"></i> Energy and Power</a>
+                     <a href="currency.html"><i class="fas fa-money-bill-wave"></i> Currency</a>
+                   </div>
+            </div>
+
+                <a href="charts.html" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Charts</span>
+                </a>
+                <a href="history.html" class="nav-link">
+                    <i class="fas fa-history"></i>
+                    <span>History</span>
+                </a>
+                <a href="articles.html" class="nav-link">
+                    <i class="fas fa-newspaper"></i>
+                    <span>Articles</span>
+                </a>
+                <a href="faq.html" class="nav-link active">
+                    <i class="fas fa-question-circle"></i>
+                    <span>FAQ</span>
+                </a>
+            </div>
+            <div class="nav-actions">
+                <button id="darkModeToggle" class="dark-mode-btn">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu  -->
+<div class="mobile-menu">
+    <div class="mobile-nav-links">
+        <a href="index.html" class="mobile-nav-link">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        
+        <!-- Mobile Dropdown for Converters -->
+        <div class="mobile-dropdown">
+            <button class="mobile-dropdown-toggle">
+                <div class="toggle-content">
+                    <i class="fas fa-calculator"></i>
+                    <span>Converters</span>
+                </div>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="mobile-dropdown-content">
+                <a href="length.html" class="mobile-nav-link">
+                    <i class="fas fa-ruler-horizontal"></i>
+                    <span>Length</span>
+                </a>
+                <a href="area.html" class="mobile-nav-link">
+                    <i class="fas fa-border-all"></i>
+                    <span>Area</span>
+                </a>
+                <a href="volume.html" class="mobile-nav-link">
+                    <i class="fas fa-flask"></i>
+                    <span>Volume</span>
+                </a>
+                <a href="mass.html" class="mobile-nav-link">
+                    <i class="fas fa-weight-hanging"></i>
+                    <span>Mass</span>
+                </a>
+                <a href="temperature.html" class="mobile-nav-link">
+                    <i class="fas fa-thermometer-half"></i>
+                    <span>Temperature</span>
+                </a>
+                <a href="time.html" class="mobile-nav-link">
+                    <i class="fas fa-clock"></i>
+                    <span>Time</span>
+                </a>
+                <a href="angle.html" class="mobile-nav-link">
+                    <i class="fas fa-shapes"></i>
+                    <span>Angle</span>
+                </a>
+                <a href="energy-and-power.html" class="mobile-nav-link">
+                    <i class="fas fa-bolt"></i>
+                    <span>Energy and Power</span>
+                </a>
+                <a href="currency.html" class="mobile-nav-link">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>Currency</span>
+                </a>
+            </div>
+        </div>
+
+        <a href="charts.html" class="mobile-nav-link">
+            <i class="fas fa-chart-bar"></i>
+            <span>Charts</span>
+        </a>
+        <a href="history.html" class="mobile-nav-link">
+            <i class="fas fa-history"></i>
+            <span>History</span>
+        </a>
+        <a href="articles.html" class="mobile-nav-link">
+            <i class="fas fa-newspaper"></i>
+            <span>Articles</span>
+        </a>
+        <a href="faq.html" class="mobile-nav-link active">
+            <i class="fas fa-question-circle"></i>
+            <span>FAQ</span>
+        </a>
+    </div>
+</div>
+
+
+    <!-- FAQ Hero Section -->
+    <section class="faq-hero">
+        <div class="hero-bg-animation">
+            <div class="floating-shape shape-1"></div>
+            <div class="floating-shape shape-2"></div>
+            <div class="floating-shape shape-3"></div>
+        </div>
+        <div class="container">
+            <div class="converter-header">
+                <div class="header-icon animated-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <h1 class="animate-pop-in">Frequently Asked Questions</h1>
+                <p class="animate-pop-in">Find answers to common questions about measurement conversions and units</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Content Section -->
+    <section class="faq-content">
+        <div class="container">
+            <!-- Search Section -->
+            <div class="search-section">
+                <div class="search-box">
+                    <input type="text" id="faqSearch" placeholder="Search for questions...">
+                    <i class="fas fa-search"></i>
+                </div>
+                
+                <div class="faq-categories">
+                    <button class="category-btn active" data-category="all">All Questions</button>
+                    <button class="category-btn" data-category="general">General</button>
+                    <button class="category-btn" data-category="length">Length</button>
+                    <button class="category-btn" data-category="temperature">Temperature</button>
+                    <button class="category-btn" data-category="weight">Weight/Mass</button>
+                    <button class="category-btn" data-category="volume">Volume</button>
+                    <button class="category-btn" data-category="area">Area</button>
+                    <button class="category-btn" data-category="currency">Currency</button>
+                </div>
+            </div>
+
+            <!-- General Conversion Questions -->
+            <div class="faq-section" data-category="general">
+                <div class="section-header">
+                    <i class="fas fa-cogs"></i>
+                    <h2>General Conversion Questions</h2>
+                </div>
+                <div class="faq-grid">
+                    <!-- Question 1 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How do I enter numbers in Scientific Notation?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Scientific notation can be entered using the format: <strong>XeY</strong> where X is the number and Y is the exponent. For example:</p>
+                            <ul>
+                                <li>1.5 × 10³ = <code>1.5e3</code></li>
+                                <li>2.3 × 10⁻⁵ = <code>2.3e-5</code></li>
+                                <li>6.02 × 10²³ = <code>6.02e23</code></li>
+                            </ul>
+                            <p>Our converter will automatically recognize and process scientific notation inputs.</p>
+                        </div>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What is the difference between mass and weight?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p><strong>Mass</strong> is the amount of matter in an object and is constant regardless of location. <strong>Weight</strong> is the force exerted on that mass by gravity and varies with location.</p>
+                            <div class="conversion-tip">
+                                <p><strong>Tip:</strong> On Earth, mass and weight are often used interchangeably, but technically they're different. Our mass converter handles mass units (kg, lbs, oz), not weight force (Newtons).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Why are there different measurement systems?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Different measurement systems developed independently in various cultures and regions:</p>
+                            <ul>
+                                <li><strong>Metric System:</strong> Developed in France during the Revolution, based on decimal system</li>
+                                <li><strong>Imperial System:</strong> Evolved from British units, used in UK until 1965</li>
+                                <li><strong>US Customary:</strong> Derived from British units but evolved separately</li>
+                                <li><strong>Traditional Systems:</strong> Various local systems based on body parts or natural references</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Question 4 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How accurate are the conversion factors?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Our conversion factors are based on internationally recognized standards:</p>
+                            <ul>
+                                <li>Length: Based on exact meter definitions</li>
+                                <li>Mass: Based on kilogram standards</li>
+                                <li>Temperature: Based on thermodynamic scales</li>
+                                <li>Currency: Updated daily from reliable financial sources</li>
+                            </ul>
+                            <p>For most practical purposes, our conversions are accurate to 8-10 decimal places.</p>
+                        </div>
+                    </div>
+
+                    <!-- Question 5 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What's the difference between US and Imperial gallons?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>This is a common point of confusion:</p>
+                            <div class="quick-conversion">
+                                <p><strong>US gallon</strong> = 3.785 liters</p>
+                                <p><strong>Imperial gallon</strong> = 4.546 liters</p>
+                            </div>
+                            <p>The US gallon is about 20% smaller than the Imperial gallon. Always check which system you're working with!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Length Conversion Questions -->
+            <div class="faq-section" data-category="length">
+                <div class="section-header">
+                    <i class="fas fa-ruler-combined"></i>
+                    <h2>Length & Distance Questions</h2>
+                </div>
+                <div class="faq-grid">
+                    <!-- Question 6 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What is a knot? What is a nautical mile?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>A <strong>nautical mile</strong> is a unit of distance used in maritime and aviation navigation. It's defined as one minute of latitude along any meridian.</p>
+                            <div class="quick-conversion">
+                                <p><strong>1 nautical mile</strong> = 1,852 meters = 1.15078 statute miles</p>
+                            </div>
+                            <p>A <strong>knot</strong> is a unit of speed equal to one nautical mile per hour. So "10 knots" means 10 nautical miles per hour.</p>
+                        </div>
+                    </div>
+
+                    <!-- Question 7 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How do I convert between inches and centimeters accurately?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>The exact conversion factor is:</p>
+                            <div class="quick-conversion">
+                                <p><strong>1 inch</strong> = 2.54 centimeters (exactly)</p>
+                                <p><strong>1 centimeter</strong> = 0.393700787 inches</p>
+                            </div>
+                            <p>This definition has been internationally standardized since 1959.</p>
+                        </div>
+                    </div>
+
+                    <!-- Question 8 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What's the difference between statute miles and nautical miles?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p><strong>Statute miles</strong> are the miles used in everyday road distances:</p>
+                            <div class="quick-conversion">
+                                <p>1 statute mile = 5,280 feet = 1,609.344 meters</p>
+                            </div>
+                            <p><strong>Nautical miles</strong> are used in navigation and are longer:</p>
+                            <div class="quick-conversion">
+                                <p>1 nautical mile = 6,076 feet = 1,852 meters</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 9 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How many centimeters are in a foot?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Since 1 foot = 12 inches and 1 inch = 2.54 cm:</p>
+                            <div class="quick-conversion">
+                                <p><strong>1 foot</strong> = 12 × 2.54 = 30.48 centimeters</p>
+                            </div>
+                            <p>This conversion is exact and internationally standardized.</p>
+                        </div>
+                    </div>
+
+                    <!-- Question 10 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What is a light year and how is it converted?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>A <strong>light year</strong> is the distance light travels in one year:</p>
+                            <div class="quick-conversion">
+                                <p>1 light year = 9.46073 × 10¹⁵ meters ≈ 5.878625 trillion miles</p>
+                            </div>
+                            <p>It's used in astronomy to measure vast interstellar distances.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Temperature Conversion Questions -->
+            <div class="faq-section" data-category="temperature">
+                <div class="section-header">
+                    <i class="fas fa-thermometer-half"></i>
+                    <h2>Temperature Questions</h2>
+                </div>
+                <div class="faq-grid">
+                    <!-- Question 11 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>At what temperature are Celsius and Fahrenheit the same?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Celsius and Fahrenheit scales are equal at <strong>-40 degrees</strong>.</p>
+                            <div class="conversion-tip">
+                                <p><strong>Proof:</strong> Using the conversion formula F = (C × 9/5) + 32, set F = C:</p>
+                                <p>C = (C × 9/5) + 32 → C - (9C/5) = 32 → -4C/5 = 32 → C = -40</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 12 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What's the formula to convert Celsius to Fahrenheit?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>The exact formula is:</p>
+                            <div class="quick-conversion">
+                                <p><strong>°F = (°C × 9/5) + 32</strong></p>
+                            </div>
+                            <p>Example: 20°C = (20 × 9/5) + 32 = 36 + 32 = 68°F</p>
+                        </div>
+                    </div>
+
+                    <!-- Question 13 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How do I convert Fahrenheit to Celsius?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>The formula is:</p>
+                            <div class="quick-conversion">
+                                <p><strong>°C = (°F - 32) × 5/9</strong></p>
+                            </div>
+                            <p>Example: 98.6°F = (98.6 - 32) × 5/9 = 66.6 × 5/9 = 37°C</p>
+                        </div>
+                    </div>
+
+                    <!-- Question 14 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What is absolute zero in different temperature scales?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Absolute zero is the theoretical lowest possible temperature:</p>
+                            <div class="quick-conversion">
+                                <p><strong>Kelvin:</strong> 0 K</p>
+                                <p><strong>Celsius:</strong> -273.15°C</p>
+                                <p><strong>Fahrenheit:</strong> -459.67°F</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 15 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Why does water boil at different temperatures in different scales?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Water boils at:</p>
+                            <div class="quick-conversion">
+                                <p><strong>100°C</strong> (Celsius definition)</p>
+                                <p><strong>212°F</strong> (Fahrenheit definition)</p>
+                                <p><strong>373.15K</strong> (Kelvin)</p>
+                            </div>
+                            <p>These are fixed points used to define the temperature scales, not physical properties that change.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weight/Mass Questions -->
+            <div class="faq-section" data-category="weight">
+                <div class="section-header">
+                    <i class="fas fa-weight-hanging"></i>
+                    <h2>Weight & Mass Questions</h2>
+                </div>
+                <div class="faq-grid">
+                    <!-- Question 16 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What is the difference between the long ton, short ton, and metric ton?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>These are three different units all called "ton":</p>
+                            <div class="quick-conversion">
+                                <p><strong>Short ton</strong> (US) = 2,000 pounds = 907.18474 kg</p>
+                                <p><strong>Long ton</strong> (UK) = 2,240 pounds = 1,016.0469088 kg</p>
+                                <p><strong>Metric ton</strong> (tonne) = 1,000 kilograms = 2,204.6226218 pounds</p>
+                            </div>
+                            <p>The metric ton is also called a "tonne" to distinguish it from the other tons.</p>
+                        </div>
+                    </div>
+
+                    <!-- Question 17 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How many ounces are in a pound?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>In the avoirdupois system (common everyday weights):</p>
+                            <div class="quick-conversion">
+                                <p><strong>1 pound</strong> = 16 ounces</p>
+                            </div>
+                            <p>In troy weight (used for precious metals):</p>
+                            <div class="quick-conversion">
+                                <p><strong>1 troy pound</strong> = 12 troy ounces</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 18 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What's the difference between fluid ounces and weight ounces?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p><strong>Fluid ounces</strong> measure volume, while <strong>ounces</strong> (avoirdupois) measure weight/mass.</p>
+                            <div class="conversion-tip">
+                                <p><strong>Important:</strong> 1 fluid ounce of water weighs approximately 1 ounce, but this varies with density. For other substances, the relationship is different.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 19 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How do I convert kilograms to pounds?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>The conversion factor is:</p>
+                            <div class="quick-conversion">
+                                <p><strong>1 kilogram</strong> = 2.2046226218 pounds</p>
+                            </div>
+                            <p>For quick mental calculations, you can use 2.2 pounds per kilogram.</p>
+                        </div>
+                    </div>
+
+                    <!-- Question 20 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What is a stone as a weight measurement?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>A <strong>stone</strong> is a British imperial unit of weight:</p>
+                            <div class="quick-conversion">
+                                <p><strong>1 stone</strong> = 14 pounds = 6.35029318 kilograms</p>
+                            </div>
+                            <p>It's commonly used in the UK and Ireland for body weight.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Volume Questions -->
+            <div class="faq-section" data-category="volume">
+                <div class="section-header">
+                    <i class="fas fa-flask"></i>
+                    <h2>Volume & Capacity Questions</h2>
+                </div>
+                <div class="faq-grid">
+                    <!-- Question 21 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How many milliliters are in a liter?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>The metric system is decimal-based:</p>
+                            <div class="quick-conversion">
+                                <p><strong>1 liter</strong> = 1,000 milliliters</p>
+                            </div>
+                            <p>This makes metric volume conversions very straightforward.</p>
+                        </div>
+                    </div>
+
+                    <!-- Question 22 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What's the difference between dry and liquid measurements?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>In the US system:</p>
+                            <ul>
+                                <li><strong>Liquid measures:</strong> Fluid ounces, cups, pints, quarts, gallons</li>
+                                <li><strong>Dry measures:</strong> Pints, quarts, pecks, bushels</li>
+                            </ul>
+                            <p>Note that US dry pints and quarts are different from liquid pints and quarts!</p>
+                        </div>
+                    </div>
+
+                    <!-- Question 23 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How do I convert gallons to liters?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Remember which gallon you're using:</p>
+                            <div class="quick-conversion">
+                                <p><strong>US gallon</strong> = 3.785411784 liters</p>
+                                <p><strong>Imperial gallon</strong> = 4.54609 liters</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 24 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What is a cubic meter equivalent to in liters?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>By definition in the metric system:</p>
+                            <div class="quick-conversion">
+                                <p><strong>1 cubic meter</strong> = 1,000 liters</p>
+                            </div>
+                            <p>This makes the cubic meter the SI unit of volume.</p>
+                        </div>
+                    </div>
+
+                    <!-- Question 25 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How many cups are in a quart?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>In the US system:</p>
+                            <div class="quick-conversion">
+                                <p><strong>1 US liquid quart</strong> = 4 US cups</p>
+                            <p><strong>1 US dry quart</strong> = 4.65458877 US cups</p>
+                            <p><strong>1 Imperial quart</strong> = 4.80379970 US cups</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Area Questions -->
+            <div class="faq-section" data-category="area">
+                <div class="section-header">
+                    <i class="fas fa-border-all"></i>
+                    <h2>Area Questions</h2>
+                </div>
+                <div class="faq-grid">
+                    <!-- Question 26 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How many square feet are in an acre?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>The exact conversion is:</p>
+                            <div class="quick-conversion">
+                                <p><strong>1 acre</strong> = 43,560 square feet</p>
+                            </div>
+                            <p>This definition has been standardized since the Middle Ages.</p>
+                        </div>
+                    </div>
+
+                    <!-- Question 27 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What is a hectare and how does it compare to an acre?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>A <strong>hectare</strong> is a metric unit of area:</p>
+                            <div class="quick-conversion">
+                                <p><strong>1 hectare</strong> = 10,000 square meters = 2.47105 acres</p>
+                            </div>
+                            <p>It's commonly used in land measurement worldwide.</p>
+                        </div>
+                    </div>
+
+                    <!-- Question 28 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How do I convert square meters to square feet?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Since 1 meter = 3.28084 feet:</p>
+                            <div class="quick-conversion">
+                                <p><strong>1 square meter</strong> = (3.28084)² = 10.7639 square feet</p>
+                            </div>
+                            <p>For quick estimates, you can use 10.76 sq ft per sq m.</p>
+                        </div>
+                    </div>
+
+                    <!-- Question 29 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What is a square kilometer in acres?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>The conversion is:</p>
+                            <div class="quick-conversion">
+                                <p><strong>1 square kilometer</strong> = 247.105 acres</p>
+                            </div>
+                            <p>This is useful for converting large land areas.</p>
+                        </div>
+                    </div>
+
+                    <!-- Question 30 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How many square yards are in an acre?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Since 1 yard = 3 feet:</p>
+                            <div class="quick-conversion">
+                                <p><strong>1 acre</strong> = 43,560 sq ft ÷ 9 = 4,840 square yards</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Currency Questions -->
+            <div class="faq-section" data-category="currency">
+                <div class="section-header">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h2>Currency Questions</h2>
+                </div>
+                <div class="faq-grid">
+                    <!-- Question 31 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How often are exchange rates updated?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Our currency exchange rates are updated:</p>
+                            <ul>
+                                <li><strong>Major currencies:</strong> Every 60 minutes during market hours</li>
+                                <li><strong>All currencies:</strong> Daily at midnight UTC</li>
+                                <li><strong>Manual refresh:</strong> Available anytime via the refresh button</li>
+                            </ul>
+                            <p>For the most current rates, financial institutions may have more frequent updates.</p>
+                        </div>
+                    </div>
+
+                    <!-- Question 32 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Why do exchange rates fluctuate?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Exchange rates change due to:</p>
+                            <ul>
+                                <li>Economic indicators (GDP, inflation, employment)</li>
+                                <li>Central bank policies and interest rates</li>
+                                <li>Political stability and events</li>
+                                <li>Market speculation and investor sentiment</li>
+                                <li>Trade balances between countries</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Question 33 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Are the rates shown the same as bank rates?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Our rates are <strong>mid-market rates</strong> (the average between buy and sell prices in the global market).</p>
+                            <div class="conversion-tip">
+                                <p><strong>Note:</strong> Banks and exchange services typically add a margin (spread) to these rates. The rate you actually get will be slightly different.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 34 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How many currencies are supported?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We currently support <strong>168 world currencies</strong> including:</p>
+                            <ul>
+                                <li>All major currencies (USD, EUR, GBP, JPY, etc.)</li>
+                                <li>All United Nations member state currencies</li>
+                                <li>Special territories and regions</li>
+                                <li>Historical currencies (for reference)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Question 35 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Can I convert cryptocurrency?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Currently, we focus on traditional fiat currencies. However, we're working on adding major cryptocurrencies in a future update.</p>
+                            <div class="conversion-tip">
+                                <p><strong>Coming Soon:</strong> Bitcoin, Ethereum, and other major cryptocurrencies will be available in Q2 2024.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Questions Section -->
+            <div class="faq-section" data-category="general">
+                <div class="section-header">
+                    <i class="fas fa-plus-circle"></i>
+                    <h2>Additional Questions</h2>
+                </div>
+                <div class="faq-grid">
+                    <!-- Questions 36-50 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What about rainfall? How do I convert between inches of rain and millimeters of rain?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Rainfall conversion is straightforward since it's a linear measurement:</p>
+                            <div class="quick-conversion">
+                                <p><strong>1 inch of rain</strong> = 25.4 millimeters of rain</p>
+                            </div>
+                            <p>This means 10 inches of rain = 254 mm of rain.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How do I convert cooking measurements?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Common cooking conversions:</p>
+                            <div class="quick-conversion">
+                                <p>1 tablespoon = 3 teaspoons = 15 ml</p>
+                                <p>1 cup = 16 tablespoons = 240 ml</p>
+                                <p>1 fluid ounce = 2 tablespoons = 30 ml</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What's the conversion for shoe sizes between US, UK, and EU?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Shoe size conversions vary by gender and type, but general guidelines:</p>
+                            <div class="quick-conversion">
+                                <p><strong>Men's:</strong> US 8 = UK 7 = EU 41</p>
+                                <p><strong>Women's:</strong> US 7 = UK 5 = EU 38</p>
+                            </div>
+                            <p>Use our dedicated shoe size converter for precise conversions.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How do I convert between different paper sizes?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Common paper size conversions:</p>
+                            <div class="quick-conversion">
+                                <p>A4 (International) = 8.27 × 11.69 inches</p>
+                                <p>Letter (US) = 8.5 × 11 inches</p>
+                                <p>Legal (US) = 8.5 × 14 inches</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What is the conversion for ring sizes?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Ring size conversions vary by country. General guide:</p>
+                            <div class="quick-conversion">
+                                <p>US 6 = UK L = EU 52 (circumference 51.9mm)</p>
+                                <p>US 8 = UK Q = EU 56 (circumference 58.1mm)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How do I convert screen sizes from inches to centimeters?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Screen sizes are diagonal measurements:</p>
+                            <div class="quick-conversion">
+                                <p><strong>1 inch screen</strong> = 2.54 cm diagonal</p>
+                            </div>
+                            <p>Example: 55-inch TV = 139.7 cm diagonal</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What's the conversion for clothing sizes?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>General clothing size conversions:</p>
+                            <div class="quick-conversion">
+                                <p><strong>Women's:</strong> US 6 = UK 10 = EU 38</p>
+                                <p><strong>Men's:</strong> US M = UK M = EU 48-50</p>
+                            </div>
+                            <p>These vary significantly by brand and style.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How do I convert between different time zones?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Time zone conversions consider both hours and daylight saving:</p>
+                            <div class="quick-conversion">
+                                <p>New York (EST) to London (GMT): +5 hours</p>
+                                <p>Los Angeles (PST) to Tokyo (JST): +17 hours</p>
+                            </div>
+                            <p>Use our time zone converter for current conversions.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What is the conversion for blood pressure units?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Blood pressure conversions:</p>
+                            <div class="quick-conversion">
+                                <p>1 mmHg = 0.133322 kPa</p>
+                                <p>120/80 mmHg = 16.0/10.7 kPa</p>
+                            </div>
+                            <p>mmHg (millimeters of mercury) is most common in medical use.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How do I convert between different number systems?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Common number system conversions:</p>
+                            <div class="quick-conversion">
+                                <p>Decimal 10 = Binary 1010 = Hexadecimal A</p>
+                                <p>Decimal 255 = Binary 11111111 = Hexadecimal FF</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What's the conversion for angle measurements?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Angle unit conversions:</p>
+                            <div class="quick-conversion">
+                                <p>360 degrees = 2π radians = 400 gradians</p>
+                                <p>90 degrees = π/2 radians = 100 gradians</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How do I convert between different data storage units?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Data storage conversions (binary):</p>
+                            <div class="quick-conversion">
+                                <p>1 kilobyte (KB) = 1,024 bytes</p>
+                                <p>1 megabyte (MB) = 1,024 KB</p>
+                                <p>1 gigabyte (GB) = 1,024 MB</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What is the conversion for blood alcohol content?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Blood alcohol content conversions:</p>
+                            <div class="quick-conversion">
+                                <p>0.08% BAC (US legal limit) = 0.08 g/100ml = 17.4 mmol/L</p>
+                            </div>
+                            <p>Different countries use different units and limits.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How do I convert between different diamond carat weights?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Diamond carat conversions:</p>
+                            <div class="quick-conversion">
+                                <p>1 metric carat = 200 milligrams = 0.2 grams</p>
+                                <p>1 carat = 100 points (0.50 carat = 50 points)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What's the conversion for earthquake magnitude scales?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Earthquake scale relationships:</p>
+                            <div class="quick-conversion">
+                                <p>Richter 6.0 ≈ Moment Magnitude 6.0</p>
+                                <p>Each whole number increase = 10× amplitude, ~32× energy</p>
+                            </div>
+                            <p>Different scales measure different aspects of earthquakes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </section>
+  <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-ruler-combined"></i> MetricConverter</h4>
+                    <p>Your trusted companion for all unit conversion needs. Fast, accurate, and easy to use.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a>
+                    <a href="charts.html">Charts</a>
+                    <a href="history.html">History</a>
+                    <a href="articles.html">Article</a>
+                    <a href="faq.html">Help & FAQ</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Converters</h4>
+                    <a href="length.html">Length</a>
+                    <a href="area.html">Area</a>
+                    <a href="volume.html">Volume</a>
+                    <a href="mass.html">Mass</a>
+                    <a href="temperature.html">Temperature</a>
+                    <a href="time.html">Time</a>
+                    <a href="angle.html">Angle</a>
+                    <a href="energy-and-power.html">Energy&Power</a>
+                    <a href="currency.html">Currency</a>
+                </div>
+                <div class="footer-bottom">
+                <p>&copy; 2025 MetricConverter. All rights reserved. | eProject by Abdur Rehman, Sidrat Ul Muntaha and Ameema</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // FAQ functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // FAQ accordion functionality
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                const answer = item.querySelector('.faq-answer');
+                
+                question.addEventListener('click', () => {
+                    // Close all other items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                            otherItem.querySelector('.faq-answer').classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current item
+                    item.classList.toggle('active');
+                    answer.classList.toggle('active');
+                });
+            });
+
+            // Search functionality
+            const searchInput = document.getElementById('faqSearch');
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const faqSections = document.querySelectorAll('.faq-section');
+                
+                faqSections.forEach(section => {
+                    let hasVisibleItems = false;
+                    const faqItems = section.querySelectorAll('.faq-item');
+                    
+                    faqItems.forEach(item => {
+                        const question = item.querySelector('.faq-question span').textContent.toLowerCase();
+                        const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                        
+                        if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                            item.style.display = 'block';
+                            hasVisibleItems = true;
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                    
+                    section.style.display = hasVisibleItems ? 'block' : 'none';
+                });
+            });
+
+            // Category filtering
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Update active button
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const category = this.getAttribute('data-category');
+                    const faqSections = document.querySelectorAll('.faq-section');
+                    
+                    faqSections.forEach(section => {
+                        if (category === 'all' || section.getAttribute('data-category') === category) {
+                            section.style.display = 'block';
+                        } else {
+                            section.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Open FAQ items that match URL hash
+            if (window.location.hash) {
+                const targetId = window.location.hash.substring(1);
+                const targetItem = document.getElementById(targetId);
+                if (targetItem) {
+                    targetItem.classList.add('active');
+                    targetItem.querySelector('.faq-answer').classList.add('active');
+                    targetItem.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+    </script>
+</body>
+</html>
